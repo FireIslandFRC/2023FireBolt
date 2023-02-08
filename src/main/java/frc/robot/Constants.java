@@ -15,9 +15,12 @@ public final class Constants {
 
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
+    /* Pigeon */
+    public static final double pigeon = 30;
+
     /* Drivetrain Constants */
-    public static final double trackWidth = Units.inchesToMeters(20.75);
-    public static final double wheelBase = Units.inchesToMeters(21.75);
+    public static final double trackWidth = Units.inchesToMeters(28);
+    public static final double wheelBase = Units.inchesToMeters(26);
     public static final double wheelDiameter = Units.inchesToMeters(4.0);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
 
@@ -85,7 +88,7 @@ public final class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 2;
       public static final int canCoderID = 21;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(38+180); //108.28-90-0.8
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(38+180);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -95,7 +98,7 @@ public final class Constants {
       public static final int driveMotorID = 3;
       public static final int angleMotorID = 4;
       public static final int canCoderID = 22;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(117+180); //79.98-90-1.5
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(117+180);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
