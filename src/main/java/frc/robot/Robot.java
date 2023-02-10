@@ -4,10 +4,20 @@
 
 package frc.robot;
 
+import java.io.File;
+import java.util.HashMap;
+
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
+
+
+//import io.github.oblarg.oblog.Logger;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +29,10 @@ public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private static String kDefaultAuto;
+    private static String[] paths;
+    private String m_autoSelected;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,6 +44,17 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    paths = this.getPaths();
+        if (paths.length > 0) {
+            kDefaultAuto = paths[0];
+
+            for (String path : paths) {
+                m_chooser.addOption(path, path);
+            }
+            m_chooser.setDefaultOption(kDefaultAuto, kDefaultAuto);
+        }
+        SmartDashboard.putData("Autonomous Selection", m_chooser);
   }
 
   /**
@@ -58,12 +83,31 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //m_autonomousCommand2 = m_robotContainer.getAutonomousCommand2(m_autoSelected, null);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    HashMap<String, Command> eventMap = new HashMap<String, Command>();
+        // eventMap.put("intake", new IntakeCommand())
+
+        m_autoSelected = m_chooser.getSelected();
+
+        try {
+            m_autonomousCommand = m_robotContainer.getAutonomousCommand2(m_autoSelected, eventMap);
+        } catch (Exception e) {
+            System.out.println("Error loading autonomous command: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // schedule the autonomous command (example)
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.schedule();
+        } else {
+            System.out.println("No auto selected or failed to run");
+        }
   }
 
   /** This function is called periodically during autonomous. */
@@ -94,4 +138,24 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  private String[] getPaths() {
+    // read the autos folder and get all the classes
+    // return them in an array
+
+    File dir = new File(Filesystem.getDeployDirectory() + "/pathplanner");
+    File[] directoryListing = dir.listFiles();
+    if (directoryListing == null) {
+        return new String[0];
+    }
+
+    String[] paths = new String[directoryListing.length];
+    for (int i = 0; i < directoryListing.length; i++) {
+        String name = directoryListing[i].getName();
+        if (name.endsWith(".path")) {
+            paths[i] = name.substring(0, name.length() - 5);
+        }
+    }
+    return paths;
+}
 }

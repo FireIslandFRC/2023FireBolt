@@ -4,6 +4,14 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import frc.robot.subsystems.Swerve;
+
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -76,4 +84,19 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return new exampleAuto(s_Swerve);
   }
+  public Command getAutonomousCommand2(String pathName, HashMap<String, Command> eventMap) {
+                PathPlannerTrajectory path = PathPlanner.loadPath(pathName, 1,
+                                3);
+                SwerveAutoBuilder builder = new SwerveAutoBuilder(
+                                s_Swerve::getPose,
+                                s_Swerve::resetOdometry,
+                                Constants.Swerve.swerveKinematics,
+                                new PIDConstants(1.5, 0, 0),
+                                new PIDConstants(3, 0, 0),
+                                s_Swerve::setModuleStates,
+                                eventMap,
+                                true,
+                                s_Swerve);
+                return builder.fullAuto(path);
+        }
 }
