@@ -152,9 +152,10 @@ public class Robot extends TimedRobot {
     String[] paths = new String[directoryListing.length];
     for (int i = 0; i < directoryListing.length; i++) {
         String name = directoryListing[i].getName();
-        if (name.endsWith(".path")) {
-            paths[i] = name.substring(0, name.length() - 5);
-        }
+        
+        paths[i] = name.substring(0, name.length() - 5);
+        /*if (name.endsWith(".path")) {
+        } */
     }
     return paths;
 }

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
@@ -85,6 +86,7 @@ public class RobotContainer {
     return new exampleAuto(s_Swerve);
   }
   public Command getAutonomousCommand2(String pathName, HashMap<String, Command> eventMap) {
+                eventMap.put("event", new PrintCommand("passed event"));
                 PathPlannerTrajectory path = PathPlanner.loadPath(pathName, 1,
                                 3);
                 SwerveAutoBuilder builder = new SwerveAutoBuilder(
