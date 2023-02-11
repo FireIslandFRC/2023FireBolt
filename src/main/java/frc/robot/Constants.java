@@ -1,6 +1,9 @@
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -9,6 +12,10 @@ import edu.wpi.first.math.util.Units;
 import frc.lib.config.SwerveModuleConstants;
 
 public final class Constants {
+
+  public static final class RobotMap {
+    public static CANSparkMax Arm_Motor = new CANSparkMax(9, MotorType.kBrushless);
+  }
 
   public static final class Swerve {
     public static final double stickDeadband = 0.2;
