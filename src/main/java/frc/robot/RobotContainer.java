@@ -81,14 +81,17 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new exampleAuto(s_Swerve);
-  }
+  }*/
   public Command getAutonomousCommand2(String pathName, HashMap<String, Command> eventMap) {
                 eventMap.put("event", new PrintCommand("passed event"));
+
                 PathPlannerTrajectory path = PathPlanner.loadPath(pathName, 1,
                                 3);
+
+                                
                 SwerveAutoBuilder builder = new SwerveAutoBuilder(
                                 s_Swerve::getPose,
                                 s_Swerve::resetOdometry,
