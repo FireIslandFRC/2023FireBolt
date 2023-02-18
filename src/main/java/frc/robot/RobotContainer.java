@@ -4,20 +4,29 @@
 
 package frc.robot;
 
+import java.sql.Driver;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import frc.robot.subsystems.Swerve;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
@@ -31,21 +40,26 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   /* Controllers */
-  private final Joystick driver = new Joystick(0);
+  private final static Joystick driver = new Joystick(0);
 
   /* Drive Controls */
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  private final int translationAxis = Joystick.kDefaultYChannel;
+  private final int strafeAxis = Joystick.kDefaultXChannel;
+  private final int rotationAxis = Joystick.kDefaultTwistChannel;
 
   /* Driver Buttons */
   private final JoystickButton zeroGyro =
-      new JoystickButton(driver, XboxController.Button.kY.value);
+      new JoystickButton(driver, Joystick.ButtonType.kTrigger.value);
   private final JoystickButton robotCentric =
       new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
   private final JoystickButton slowSpeed =
       new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+
+      public static final JoystickButton armlift =
+      new JoystickButton(driver, 7 );
+
+  
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
@@ -55,8 +69,8 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver.getRawAxis(translationAxis),
-            () -> -driver.getRawAxis(strafeAxis),
+            () -> -driver.getRawAxis(translationAxis)*0.5,
+            () -> -driver.getRawAxis(strafeAxis)*0.5,
             () -> -driver.getRawAxis(rotationAxis),
             () -> robotCentric.getAsBoolean(),
             () -> slowSpeed.getAsBoolean()));
@@ -86,22 +100,47 @@ public class RobotContainer {
     return new exampleAuto(s_Swerve);
   }*/
   public Command getAutonomousCommand2(String pathName, HashMap<String, Command> eventMap) {
-                eventMap.put("event", new PrintCommand("passed event"));
+    eventMap.put("event1", new ArmSpin());
 
-                PathPlannerTrajectory path = PathPlanner.loadPath(pathName, 1,
-                                3);
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
+                    3);
 
-                                
-                SwerveAutoBuilder builder = new SwerveAutoBuilder(
-                                s_Swerve::getPose,
-                                s_Swerve::resetOdometry,
-                                Constants.Swerve.swerveKinematics,
-                                new PIDConstants(1.5, 0, 0),
-                                new PIDConstants(3, 0, 0),
-                                s_Swerve::setModuleStates,
-                                eventMap,
-                                true,
-                                s_Swerve);
-                return builder.fullAuto(path);
-        }
+            
+    List<PathPlannerTrajectory> autopath1 = 
+    PathPlanner.loadPathGroup(pathName, 1, 5);
+
+    SwerveAutoBuilder builder = new SwerveAutoBuilder(
+                    s_Swerve::getPose,
+                    s_Swerve::resetOdometry,
+                    Constants.Swerve.swerveKinematics,
+                    new PIDConstants(1.5, 0, 0),
+                    new PIDConstants(3, 0, 0),
+                    s_Swerve::setModuleStates,
+                    eventMap,
+                    true,
+                    s_Swerve);
+    final ArmSpin armgo = new ArmSpin();
+    return Commands.sequence(
+      builder.fullAuto(path.get(0)),
+      new PrintCommand("start"),
+      armgo,
+      new PrintCommand("done"),
+      builder.fullAuto(path.get(1))
+    );
+}
+/*public Command getAutonomousCommand3(String pathName, HashMap<String, Command> eventMap) {
+  eventMap.put("event1", new ArmSpin());
+
+  List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup(pathName, 1, 3);
+
+          
+  List<PathPlannerTrajectory> autopath1 = 
+  PathPlanner.loadPathGroup("testpath1", 1, 1);
+
+  return Commands.sequence(
+    new PathFollowingCommand(),
+    new PathFollowingCommand()
+  );
+}*/
+
 }

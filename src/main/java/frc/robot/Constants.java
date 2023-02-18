@@ -15,6 +15,7 @@ public final class Constants {
 
   public static final class RobotMap {
     public static CANSparkMax Arm_Motor = new CANSparkMax(9, MotorType.kBrushless);
+    public static CANSparkMax Arm_Retract_Motor = new CANSparkMax(10, MotorType.kBrushless);
   }
 
   public static final class Swerve {
