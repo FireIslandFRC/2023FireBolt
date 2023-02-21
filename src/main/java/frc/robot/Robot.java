@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.config.CTREConfigs;
 import frc.robot.commands.ArmSpin;
 import frc.robot.RobotContainer.*;
+import edu.wpi.first.cameraserver.CameraServer;
 
 
 //import io.github.oblarg.oblog.Logger;
@@ -37,13 +38,14 @@ public class Robot extends TimedRobot {
     private static String[] paths;
     private String m_autoSelected;
     
-
+  CameraServer camera;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
+    CameraServer.startAutomaticCapture();
     ctreConfigs = new CTREConfigs();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
@@ -132,8 +134,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    final ArmSpin armgo = new ArmSpin();
-    RobotContainer.armlift.whileTrue(armgo);
+    //ArmSpin armgo = new ArmSpin();
+    RobotContainer.armlift.onTrue(new ArmSpin());
  
   }
 
