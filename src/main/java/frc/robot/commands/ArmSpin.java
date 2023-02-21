@@ -11,27 +11,31 @@ public class ArmSpin extends CommandBase{
 
     @Override
     public void initialize(){
-        m_timer.reset();
+        m_timer.start();
+        done = false;
     }
 
     @Override
     public void execute(){
-        
-        m_timer.start();
-        System.out.println("potato");
+        Arm.Drive(1);
         if (m_timer.get() > 3){
-            end(true);
+            m_timer.stop();
+            m_timer.reset();
+            done = true;
+            Arm.Stop();
         }
     }
 
     @Override
     public void end(boolean interrupted){
-        Arm.Stop();
+        m_timer.stop();
+            m_timer.reset();
+            done = true;
+            Arm.Stop();
     }
 
     @Override
     public boolean isFinished(){
-        Arm.Stop();
         return done;
     }
 }
