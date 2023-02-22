@@ -3,8 +3,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
-
-public class ArmSpin extends CommandBase{
+//this is drew
+public class ArmRotate extends CommandBase{
     private final Timer m_timer = new Timer();
 
     public static boolean done = false;
@@ -17,12 +17,12 @@ public class ArmSpin extends CommandBase{
 
     @Override
     public void execute(){
-        Arm.Drive(1);
+        Functions.Drive_lift(1);
         if (m_timer.get() > 3){
             m_timer.stop();
             m_timer.reset();
             done = true;
-            Arm.Stop();
+            Functions.Stop_lift();
         }
     }
 
@@ -31,7 +31,7 @@ public class ArmSpin extends CommandBase{
         m_timer.stop();
             m_timer.reset();
             done = true;
-            Arm.Stop();
+            Functions.Stop_lift();
     }
 
     @Override

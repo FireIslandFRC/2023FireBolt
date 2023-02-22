@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.config.CTREConfigs;
-import frc.robot.commands.ArmSpin;
+import frc.robot.commands.ArmRotate;
 import frc.robot.RobotContainer.*;
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //ArmSpin armgo = new ArmSpin();
-    RobotContainer.armlift.onTrue(new ArmSpin());
+    RobotContainer.armlift.onTrue(new ArmRotate());
  
   }
 

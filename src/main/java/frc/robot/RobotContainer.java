@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -44,7 +45,7 @@ public class RobotContainer {
   
   /* Controllers */
   private final static Joystick driver = new Joystick(0);
-
+  public final double auto = -1;
   /* Drive Controls */
   private final int translationAxis = Joystick.kDefaultYChannel;
   private final int strafeAxis = Joystick.kDefaultXChannel;
@@ -63,9 +64,13 @@ public class RobotContainer {
       new JoystickButton(driver, 7 );
 
   
+    
+  
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+  public CommandBase meat;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -103,7 +108,8 @@ public class RobotContainer {
     return new exampleAuto(s_Swerve);
   }*/
   public Command getAutonomousCommand2(String pathName, HashMap<String, Command> eventMap) {
-    eventMap.put("event1", new ArmSpin());
+    
+    eventMap.put("event1", new ArmRotate());
 
     List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
                     3);
@@ -122,15 +128,32 @@ public class RobotContainer {
                     eventMap,
                     true,
                     s_Swerve);
-    final ArmSpin armgo = new ArmSpin();
+    final ArmRotate armgo = new ArmRotate();
+
+
+
+if (pathName == "Drewsif"){
+        meat = Commands.sequence(
+        builder.fullAuto(path.get(0)),
+        new PrintCommand("start"),
+        armgo,
+        new PrintCommand("done"),
+        builder.fullAuto(path.get(1)));
+}else if (pathName == "qwerttyuiop"){
+      meat = Commands.sequence(
+        new PrintCommand("start")
+      );
+    }else{
+      meat = Commands.sequence(
+        new PrintCommand("potato code")
+      );
+    }
+
     return Commands.sequence(
-      builder.fullAuto(path.get(0)),
-      new PrintCommand("start"),
-      armgo,
-      new PrintCommand("done"),
-      builder.fullAuto(path.get(1))
+      new PrintCommand(pathName)
     );
 }
+//Hola soy dora Mi es muy shiny
 /*public Command getAutonomousCommand3(String pathName, HashMap<String, Command> eventMap) {
   eventMap.put("event1", new ArmSpin());
 
