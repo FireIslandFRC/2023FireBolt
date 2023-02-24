@@ -8,6 +8,7 @@ public class Functions {
     private static final Timer m_timer = new Timer();
 
     public static void Drive_lift (double speed){
+        
         RobotMap.Arm_Motor.set(speed);
     }
     public static void Drive_extend (double speed){
@@ -20,12 +21,7 @@ public class Functions {
     }
     public static void Stop_lift (){
         
-        m_timer.start();
-        Drive_lift(.3);
-        if(m_timer.get() > 5){
- 
-        }
-        
+        RobotMap.Arm_Motor.set(0);
         
 
 

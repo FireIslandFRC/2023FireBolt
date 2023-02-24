@@ -19,7 +19,7 @@ public final class Constants {
   }
 
   public static final class Swerve {
-    public static final double stickDeadband = 0.2;
+    public static final double stickDeadband = 0.1;
 
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 

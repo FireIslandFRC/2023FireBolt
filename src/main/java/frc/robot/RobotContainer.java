@@ -69,7 +69,8 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  public CommandBase meat;
+  public CommandBase meat = Commands.sequence(new PrintCommand("noooo"));
+  public String dog = "cat";
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -79,7 +80,7 @@ public class RobotContainer {
             s_Swerve,
             () -> -driver.getRawAxis(translationAxis)*0.5,
             () -> -driver.getRawAxis(strafeAxis)*0.5,
-            () -> -driver.getRawAxis(rotationAxis),
+            () -> -driver.getRawAxis(rotationAxis)*0.5,
             () -> robotCentric.getAsBoolean(),
             () -> slowSpeed.getAsBoolean()));
 
@@ -109,7 +110,7 @@ public class RobotContainer {
   }*/
   public Command getAutonomousCommand2(String pathName, HashMap<String, Command> eventMap) {
     
-    eventMap.put("event1", new ArmRotate());
+    //eventMap.put("event1", new ArmRotate());
 
     List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
                     3);
@@ -132,28 +133,28 @@ public class RobotContainer {
 
 
 
-if (pathName == "Drewsif"){
+if (pathName.equals("Drewsif") ){
+        dog = "dog";
         meat = Commands.sequence(
         builder.fullAuto(path.get(0)),
-        new PrintCommand("start"),
+        new PrintCommand("111111111111111111111111111111111111111111111111111111111111"),
         armgo,
         new PrintCommand("done"),
         builder.fullAuto(path.get(1)));
-}else if (pathName == "qwerttyuiop"){
+}else if (pathName.equals("qwerttyuiop") ){
       meat = Commands.sequence(
-        new PrintCommand("start")
-      );
-    }else{
+        builder.fullAuto(path.get(0)),
+        new PrintCommand("sdgjdsghdajkhflijasg]dsgadgdsaasfsa adsfsafsadfdagjskfhdsakjfhsadkj"),
+        builder.fullAuto(path.get(1)),
+        builder.fullAuto(path.get(2)));
+}else{
       meat = Commands.sequence(
-        new PrintCommand("potato code")
+        new PrintCommand("potato code 222222222222222222222222222222222222222222222222222")
       );
     }
 
-    return Commands.sequence(
-      new PrintCommand(pathName)
-    );
+    return meat;
 }
-//Hola soy dora Mi es muy shiny
 /*public Command getAutonomousCommand3(String pathName, HashMap<String, Command> eventMap) {
   eventMap.put("event1", new ArmSpin());
 
