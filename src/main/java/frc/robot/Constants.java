@@ -1,6 +1,8 @@
 package frc.robot;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -9,14 +11,19 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.lib.config.SwerveModuleConstants;
 
 public final class Constants {
 
   public static final class RobotMap {
-    public static CANSparkMax Arm_Motor = new CANSparkMax(9, MotorType.kBrushless);
-    public static CANSparkMax Arm_Retract_Motor = new CANSparkMax(10, MotorType.kBrushless);
+    public static CANSparkMax Arm_Motor = new CANSparkMax(10, MotorType.kBrushless);
+    public static CANSparkMax Arm_Extend_Motor = new CANSparkMax(9, MotorType.kBrushless);
+    public static DoubleSolenoid Brake = new DoubleSolenoid(9, PneumaticsModuleType.REVPH, 4, 5);
+    public static RelativeEncoder Arm_Motor_Encoder = Arm_Motor.getEncoder();
   }
+    
 
   public static final class Swerve {
     public static final double stickDeadband = 0.1;

@@ -1,10 +1,11 @@
-package frc.robot.commands;
+package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.subsystems.*;
 //this is drew
-public class ArmRotate extends CommandBase{
+public class PullArmIn extends CommandBase{
     private final Timer m_timer = new Timer();
 
     public static boolean done = false;
@@ -17,13 +18,12 @@ public class ArmRotate extends CommandBase{
 
     @Override
     public void execute(){
-        Functions.Drive_lift(1);
-        if (m_timer.get() > 3){
-            m_timer.stop();
-            m_timer.reset();
-            done = true;
-            Functions.Stop_lift();
+        if (/*limitswitch not pressed */ true){
+            Functions.Arm_extend(-0.6);
+        }else{
+            new PrintCommand("Stop!!!!!!!!!");
         }
+        
     }
 
     @Override
@@ -31,7 +31,8 @@ public class ArmRotate extends CommandBase{
         m_timer.stop();
             m_timer.reset();
             done = true;
-            Functions.Stop_lift();
+            Functions.Arm_extend(0);
+            Functions.Stop_extend();
     }
 
     @Override

@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
+import frc.robot.commands.Arm.ArmRotateDown;
 import frc.robot.subsystems.*;
 
 /**
@@ -60,8 +61,14 @@ public class RobotContainer {
   private final JoystickButton slowSpeed =
       new JoystickButton(driver, XboxController.Button.kRightBumper.value);
 
-      public static final JoystickButton armlift =
+  public static final JoystickButton armlift =
       new JoystickButton(driver, 7 );
+  public static final JoystickButton armlower =
+      new JoystickButton(driver, 8);
+  public static final JoystickButton armout =
+      new JoystickButton(driver, 13);
+  public static final JoystickButton armin =
+      new JoystickButton(driver, 14 );
 
   
     
@@ -129,7 +136,7 @@ public class RobotContainer {
                     eventMap,
                     true,
                     s_Swerve);
-    final ArmRotate armgo = new ArmRotate();
+    final ArmRotateDown armgo = new ArmRotateDown();
 
 
 
