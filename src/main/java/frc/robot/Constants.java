@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.lib.config.SwerveModuleConstants;
@@ -20,8 +21,20 @@ public final class Constants {
   public static final class RobotMap {
     public static CANSparkMax Arm_Motor = new CANSparkMax(10, MotorType.kBrushless);
     public static CANSparkMax Arm_Extend_Motor = new CANSparkMax(9, MotorType.kBrushless);
-    public static DoubleSolenoid Brake = new DoubleSolenoid(9, PneumaticsModuleType.REVPH, 4, 5);
+    public static DoubleSolenoid Brake = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 1, 2);
     public static RelativeEncoder Arm_Motor_Encoder = Arm_Motor.getEncoder();
+    public static RelativeEncoder Arm_Extend_Motor_Encoder = Arm_Extend_Motor.getEncoder();
+    public static DoubleSolenoid EndEffector = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 3, 4);
+    public static DigitalInput LimitSwitch = new DigitalInput(0);
+  }
+
+  public static final class Variables {
+    public static double ArmExtendSpeed = 0.6;
+    public static double ArmRestPosition = 4;
+    public static double ArmRestGrabPosition = 20;
+    public static double ArmLiftSpeed = 0.6;
+    public static double ArmExtendPostion = 20;
+    public static double TopNodePosition = 110;
   }
     
 

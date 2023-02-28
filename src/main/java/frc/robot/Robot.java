@@ -21,6 +21,8 @@ import frc.robot.RobotContainer.*;
 import frc.robot.commands.Arm.ArmOut;
 import frc.robot.commands.Arm.ArmRotateDown;
 import frc.robot.commands.Arm.ArmRotateUp;
+import frc.robot.commands.Arm.Drop;
+import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -144,6 +146,9 @@ public class Robot extends TimedRobot {
     RobotContainer.armin.whileTrue(new PullArmIn());
     RobotContainer.armlift.whileTrue(new ArmRotateUp());
     RobotContainer.armlower.whileTrue(new ArmRotateDown());
+    RobotContainer.Close.onTrue(new Grab());
+    RobotContainer.Open.onTrue(new Drop());
+    
   }
 
   @Override

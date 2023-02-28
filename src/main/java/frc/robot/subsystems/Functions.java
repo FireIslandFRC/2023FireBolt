@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Functions {
+    
+
     public static void Arm_lift (double speed1){
         RobotMap.Arm_Motor.set(speed1);
     }
@@ -25,4 +27,15 @@ public class Functions {
     public static void Un_Brake(){
         RobotMap.Brake.set(Value.kReverse);
     }
+    public static void Grab(){
+        RobotMap.EndEffector.set(Value.kReverse);
+    }
+    public static void Release(){
+        RobotMap.EndEffector.set(Value.kForward);
+    }
+    public static boolean LimitValue(){
+        boolean value = RobotMap.LimitSwitch.get();
+        return value;
+    }
+    
 }
