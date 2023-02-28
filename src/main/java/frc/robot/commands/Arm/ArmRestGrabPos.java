@@ -4,21 +4,21 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.RobotMap;
-import frc.robot.Constants.Variables;
 import frc.robot.subsystems.*;
-public class ArmRest extends CommandBase{
+import frc.robot.Constants.Variables;
+public class ArmRestGrabPos extends CommandBase{
 
-    public static boolean done = false;
+	public static boolean done = false;
 
     @Override
     public void initialize(){}
 
     @Override
     public void execute(){
-        if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestPosition){
+        if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestGrabPosition){
             Functions.Un_Brake();
             Functions.Arm_lift(-0.6);
-        }else if(RobotMap.Arm_Motor_Encoder.getPosition() <= Variables.ArmRestPosition){
+        }else if(RobotMap.Arm_Motor_Encoder.getPosition() < Variables.ArmRestGrabPosition){
             Functions.Brake();
             Functions.Stop_lift();
             done = true;

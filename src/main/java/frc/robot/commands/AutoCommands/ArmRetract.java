@@ -1,12 +1,12 @@
-package frc.robot.commands.Arm;
+package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Variables;
-
 import frc.robot.subsystems.*;
 //this is drew
-public class ArmOut extends CommandBase{
+public class ArmRetract extends CommandBase{
     private final Timer m_timer = new Timer();
 
     public static boolean done = false;
@@ -19,9 +19,12 @@ public class ArmOut extends CommandBase{
 
     @Override
     public void execute(){
-        if (!Functions.LimitValue()){
-            Functions.Arm_extend(Variables.ArmExtendSpeed);
+        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > Variables.ArmExtendPostion && !Functions.LimitValue()){
+            Functions.Arm_extend(-Variables.ArmExtendSpeed);
+        }else if(RobotMap.Arm_Extend_Motor_Encoder.getPosition() < Variables.ArmExtendPostion){
+            Functions.Stop_extend();
         }
+        
     }
 
     @Override

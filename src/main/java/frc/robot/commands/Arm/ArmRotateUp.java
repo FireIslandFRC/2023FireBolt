@@ -2,6 +2,7 @@ package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Variables;
 import frc.robot.subsystems.*;
 //this is drew
 public class ArmRotateUp extends CommandBase{
@@ -17,11 +18,13 @@ public class ArmRotateUp extends CommandBase{
 
     @Override
     public void execute(){
-        Functions.Arm_lift(0.6);
+        Functions.Un_Brake();
+        Functions.Arm_lift(Variables.ArmLiftSpeed);
     }
 
     @Override
     public void end(boolean interrupted){
+        Functions.Brake();
         m_timer.stop();
         m_timer.reset();
         done = true;

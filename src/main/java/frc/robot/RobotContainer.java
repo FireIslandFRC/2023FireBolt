@@ -32,7 +32,15 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
+import frc.robot.commands.Arm.ArmRest;
+import frc.robot.commands.Arm.ArmRestGrabPos;
 import frc.robot.commands.Arm.ArmRotateDown;
+import frc.robot.commands.Arm.ArmRotateUp;
+import frc.robot.commands.Arm.Drop;
+import frc.robot.commands.Arm.Grab;
+import frc.robot.commands.AutoCommands.ArmOutTop;
+import frc.robot.commands.AutoCommands.ArmRetract;
+import frc.robot.commands.AutoCommands.RaiseToTopCone;
 import frc.robot.subsystems.*;
 
 /**
@@ -46,6 +54,7 @@ public class RobotContainer {
   
   /* Controllers */
   private final static Joystick driver = new Joystick(0);
+  private final static Joystick op = new Joystick(1);
   public final double auto = -1;
   /* Drive Controls */
   private final int translationAxis = Joystick.kDefaultYChannel;
@@ -54,21 +63,23 @@ public class RobotContainer {
 
   /* Driver Buttons */
   private final JoystickButton zeroGyro =
-      new JoystickButton(driver, Joystick.ButtonType.kTrigger.value);
+      new JoystickButton(driver, 5);
   private final JoystickButton robotCentric =
-      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
+      new JoystickButton(driver, 2);
   private final JoystickButton slowSpeed =
-      new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-
+      new JoystickButton(driver, 1);
+  public static final JoystickButton Close = 
+      new JoystickButton(op, 5);
+  public static final JoystickButton Open =
+      new JoystickButton(op, 10);
   public static final JoystickButton armlift =
-      new JoystickButton(driver, 7 );
+      new JoystickButton(op, 7);
   public static final JoystickButton armlower =
-      new JoystickButton(driver, 8);
+      new JoystickButton(op, 8);
   public static final JoystickButton armout =
-      new JoystickButton(driver, 13);
+      new JoystickButton(op, 13);
   public static final JoystickButton armin =
-      new JoystickButton(driver, 14 );
+      new JoystickButton(op, 14);
 
   
     
@@ -76,8 +87,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  public CommandBase meat = Commands.sequence(new PrintCommand("noooo"));
-  public String dog = "cat";
+  public CommandBase meat = Commands.sequence(new PrintCommand("not auto"));
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -85,8 +95,8 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver.getRawAxis(translationAxis)*0.5,
-            () -> -driver.getRawAxis(strafeAxis)*0.5,
+            () -> -driver.getRawAxis(translationAxis)*0.75,
+            () -> -driver.getRawAxis(strafeAxis)*0.75,
             () -> -driver.getRawAxis(rotationAxis)*0.5,
             () -> robotCentric.getAsBoolean(),
             () -> slowSpeed.getAsBoolean()));
@@ -119,8 +129,10 @@ public class RobotContainer {
     
     //eventMap.put("event1", new ArmRotate());
 
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
                     3);
+
+    eventMap.put("raisearm", new RaiseToTopCone());
 
             
     List<PathPlannerTrajectory> autopath1 = 
@@ -140,26 +152,46 @@ public class RobotContainer {
 
 
 
-if (pathName.equals("Drewsif") ){
-        dog = "dog";
-        meat = Commands.sequence(
-        builder.fullAuto(path.get(0)),
-        new PrintCommand("111111111111111111111111111111111111111111111111111111111111"),
-        armgo,
-        new PrintCommand("done"),
-        builder.fullAuto(path.get(1)));
-}else if (pathName.equals("qwerttyuiop") ){
+if (pathName.equals("ConeDock")){
       meat = Commands.sequence(
-        builder.fullAuto(path.get(0)),
-        new PrintCommand("sdgjdsghdajkhflijasg]dsgadgdsaasfsa adsfsafsadfdagjskfhdsakjfhsadkj"),
-        builder.fullAuto(path.get(1)),
-        builder.fullAuto(path.get(2)));
-}else{
+        new RaiseToTopCone(),
+        new ArmOutTop(),
+        new Drop(),
+        new ArmRetract(),
+        new ArmRest(),
+        builder.fullAuto(path.get(0))
+        );
+}else if (pathName.equals("ConePickDock")){
       meat = Commands.sequence(
-        new PrintCommand("potato code 222222222222222222222222222222222222222222222222222")
+      new RaiseToTopCone(),
+      new ArmOutTop(),
+      new Drop(),
+      new ArmRetract(),
+      new ArmRestGrabPos(),
+      builder.fullAuto(path.get(0)),
+      new Grab(),
+      builder.fullAuto(path.get(1)));
+}else if (pathName.equals("Cone")){
+      meat = Commands.sequence(
+        new PrintCommand("potato code"),
+        new RaiseToTopCone(),
+        new ArmOutTop(),
+        new Drop(),
+        new ArmRetract(),
+        new ArmRest(),
+        builder.fullAuto(path.get(0))
+      );
+  }else if (pathName.equals("ConePick")){
+    meat = Commands.sequence(
+      new RaiseToTopCone(),
+      new ArmOutTop(),
+      new Drop(),
+      new ArmRetract(),
+      new ArmRest(),
+      builder.fullAuto(path.get(0))
       );
     }
-
+    //returns the Meat of the auto
     return meat;
 }
 /*public Command getAutonomousCommand3(String pathName, HashMap<String, Command> eventMap) {
