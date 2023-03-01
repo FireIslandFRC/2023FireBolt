@@ -23,11 +23,11 @@ public class Functions {
     }
 
     public static void Brake() {
-        RobotMap.Brake.set(Value.kForward);
+        RobotMap.Brake.set(Value.kReverse);
     }
 
     public static void Un_Brake() {
-        RobotMap.Brake.set(Value.kReverse);
+        RobotMap.Brake.set(Value.kForward);
     }
 
     public static void Grab() {
