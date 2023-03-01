@@ -4,26 +4,27 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Variables;
 import frc.robot.subsystems.*;
+
 //this is drew
-public class ArmRotateDown extends CommandBase{
+public class ArmRotateDown extends CommandBase {
     private final Timer m_timer = new Timer();
 
     public static boolean done = false;
 
     @Override
-    public void initialize(){
+    public void initialize() {
         m_timer.start();
         done = false;
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         Functions.Un_Brake();
         Functions.Arm_lift(-Variables.ArmLiftSpeed);
     }
 
     @Override
-    public void end(boolean interrupted){
+    public void end(boolean interrupted) {
         m_timer.stop();
         Functions.Brake();
         done = true;
@@ -32,7 +33,7 @@ public class ArmRotateDown extends CommandBase{
     }
 
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         return done;
     }
 }

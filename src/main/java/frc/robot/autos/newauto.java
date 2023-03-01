@@ -1,27 +1,20 @@
 package frc.robot.autos;
 
-import edu.wpi.first.math.controller.PIDController;
+//import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.math.geometry.Rotation2d;
+//import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.commands.TurnToAngleCommand;
 import frc.robot.subsystems.Swerve;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.PathPoint;
+//import com.pathplanner.lib.PathPoint;
 import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
-import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+//import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 public class newauto extends SequentialCommandGroup{
     public newauto(Swerve s_Swerve){
@@ -31,11 +24,11 @@ public class newauto extends SequentialCommandGroup{
 
         System.out.println(exampleState.velocityMetersPerSecond);
 
-        PathPlannerTrajectory traj1 = PathPlanner.generatePath(
+        /*PathPlannerTrajectory traj1 = PathPlanner.generatePath(
     new PathConstraints(4, 3), 
     new PathPoint(new Translation2d(1.0, 1.0), Rotation2d.fromDegrees(0)), // position, heading
     new PathPoint(new Translation2d(3.0, 3.0), Rotation2d.fromDegrees(45)) // position, heading
-);
+);*/
 
 var thetaController =
         new ProfiledPIDController(
@@ -45,7 +38,7 @@ var thetaController =
             Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(0, 2*Math.PI);
 
-    PPSwerveControllerCommand swerveControllerCommand1 =
+    /*PPSwerveControllerCommand swerveControllerCommand1 =
         new PPSwerveControllerCommand(
             traj1,
             s_Swerve::getPose,
@@ -54,6 +47,6 @@ var thetaController =
             new PIDController(Constants.AutoConstants.kPYController, 0, 0),
             new PIDController(Constants.AutoConstants.kPThetaController, 0, 0),
             s_Swerve::setModuleStates,
-            s_Swerve);
+            s_Swerve);*/
 }
 }

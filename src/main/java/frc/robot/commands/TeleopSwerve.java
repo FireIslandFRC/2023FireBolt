@@ -43,20 +43,16 @@ public class TeleopSwerve extends CommandBase {
 
     double speedMultiplier = slowSpeedSup.getAsBoolean() ? 0.2 : 1.0;
 
-    /* Get Values, Deadband*/
-    double translationVal =
-        translationLimiter.calculate(
-            speedMultiplier *
+    /* Get Values, Deadband */
+    double translationVal = translationLimiter.calculate(
+        speedMultiplier *
             MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
-    double strafeVal =
-        strafeLimiter.calculate(
-            speedMultiplier *
+    double strafeVal = strafeLimiter.calculate(
+        speedMultiplier *
             MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
-    double rotationVal =
-        rotationLimiter.calculate(
-            speedMultiplier *
+    double rotationVal = rotationLimiter.calculate(
+        speedMultiplier *
             MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
-
 
     /* Drive */
     s_Swerve.drive(

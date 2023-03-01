@@ -1,31 +1,29 @@
 package frc.robot.commands.Arm;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.RobotMap;
 import frc.robot.subsystems.*;
+
 //this is drew
-public class Drop extends CommandBase{
+public class Drop extends CommandBase {
 
     public static boolean done = false;
 
     @Override
-    public void initialize(){
+    public void initialize() {
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         Functions.Release();
         done = true;
     }
 
     @Override
-    public void end(boolean interrupted){
+    public void end(boolean interrupted) {
     }
 
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         return done;
     }
 }

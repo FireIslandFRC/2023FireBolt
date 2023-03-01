@@ -9,7 +9,6 @@ import edu.wpi.first.math.MathUtil;
 //import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
-
 public class TurnToAngleCommand extends CommandBase {
 
     private final Swerve m_robotDrive;
@@ -17,7 +16,8 @@ public class TurnToAngleCommand extends CommandBase {
     private double angle;
     private Timer timer = new Timer();
     private double timeout;
-    public TurnToAngleCommand(Swerve subsystem, double degrees, double timeoutS){
+
+    public TurnToAngleCommand(Swerve subsystem, double degrees, double timeoutS) {
         m_robotDrive = subsystem;
         angle = degrees;
         timeout = timeoutS;
@@ -25,44 +25,45 @@ public class TurnToAngleCommand extends CommandBase {
     }
 
     @Override
-    public void initialize(){
+    public void initialize() {
         timer.reset();
         timer.start();
         complete = false;
     }
-    //eeeewwadas        jjjhello everyone this is a great keyboard!!!1 woowww 
-    
+    // eeeewwadas jjjhello everyone this is a great keyboard!!!1 woowww
+
     @Override
-    public void execute(){
+    public void execute() {
         double gyroAngle = m_robotDrive.getYaw().getDegrees();
 
         final double kP = 0.2;
         SmartDashboard.putNumber("gyroAngle", gyroAngle);
-    
+
         if (angle > 180) {
             angle = -(360 - angle);
         } else if (angle < -180) {
             angle = 360 + angle;
         }
-    
+
         double err = angle - gyroAngle;
-        double speed = MathUtil.clamp(err * kP, -Constants.Swerve.maxAngularVelocity*0.5, Constants.Swerve.maxAngularVelocity*0.5);
-    
+        double speed = MathUtil.clamp(err * kP, -Constants.Swerve.maxAngularVelocity * 0.5,
+                Constants.Swerve.maxAngularVelocity * 0.5);
+
         if (Math.abs(err) > 2 && timer.get() < timeout) {
-            m_robotDrive.drive(new Translation2d(0,0), speed, false, true);
+            m_robotDrive.drive(new Translation2d(0, 0), speed, false, true);
         } else {
             complete = true;
         }
     }
 
     @Override
-    public void end(boolean inturrupted){
-        m_robotDrive.drive(new Translation2d(0,0), 0, false, true);
+    public void end(boolean inturrupted) {
+        m_robotDrive.drive(new Translation2d(0, 0), 0, false, true);
         timer.stop();
     }
 
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         return complete;
     }
 }

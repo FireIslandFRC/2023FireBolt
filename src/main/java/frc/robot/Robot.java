@@ -7,17 +7,13 @@ package frc.robot;
 import java.io.File;
 import java.util.HashMap;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.config.CTREConfigs;
-import frc.robot.RobotContainer.*;
 import frc.robot.commands.Arm.ArmOut;
 import frc.robot.commands.Arm.ArmRotateDown;
 import frc.robot.commands.Arm.ArmRotateUp;
@@ -26,14 +22,15 @@ import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
 import edu.wpi.first.cameraserver.CameraServer;
 
-
 //import io.github.oblarg.oblog.Logger;
 
-
 /**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the
+ * name of this class or
+ * the package after creating this project, you must also update the
+ * build.gradle file in the
  * project.
  */
 public class Robot extends TimedRobot {
@@ -42,61 +39,80 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static String kDefaultAuto;
-    private static String[] paths;
-    private String m_autoSelected;
-    
+  private static String[] paths;
+  private String m_autoSelected;
+
   CameraServer camera;
+
   /**
-   * This function is run when the robot is first started up and should be used for any
+   * This function is run when the robot is first started up and should be used
+   * for any
    * initialization code.
    */
   @Override
   public void robotInit() {
     CameraServer.startAutomaticCapture();
     ctreConfigs = new CTREConfigs();
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our RobotContainer. This will perform all our button bindings,
+    // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
     paths = this.getPaths();
-        if (paths.length > 0) {
-            kDefaultAuto = paths[0];
+    if (paths.length > 0) {
+      kDefaultAuto = paths[0];
 
-            for (String path : paths) {
-                m_chooser.addOption(path, path);
-            }
-            m_chooser.setDefaultOption(kDefaultAuto, kDefaultAuto);
-        }
-        SmartDashboard.putData("Autonomous Selection", m_chooser);
+      for (String path : paths) {
+        m_chooser.addOption(path, path);
+      }
+      m_chooser.setDefaultOption(kDefaultAuto, kDefaultAuto);
+    }
+    SmartDashboard.putData("Autonomous Selection", m_chooser);
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and
+   * test.
    *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and
    * SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // Runs the Scheduler. This is responsible for polling buttons, adding
+    // newly-scheduled
+    // commands, running already-scheduled commands, removing finished or
+    // interrupted commands,
+    // and running subsystem periodic() methods. This must be called from the
+    // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  // init for disabled
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  // runs while disabled
+  public void disabledPeriodic() {
+  }
 
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  /**
+   * This autonomous runs the autonomous command selected by your
+   * {@link RobotContainer} class.
+   */
   @Override
+  // init for autonomous
   public void autonomousInit() {
-    //m_autonomousCommand2 = m_robotContainer.getAutonomousCommand2(m_autoSelected, null);
+    // m_autonomousCommand2 = m_robotContainer.getAutonomousCommand2(m_autoSelected,
+    // null);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -104,28 +120,29 @@ public class Robot extends TimedRobot {
     }
 
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
-        // eventMap.put("intake", new IntakeCommand())
+    // eventMap.put("intake", new IntakeCommand())
 
-        m_autoSelected = m_chooser.getSelected();
+    m_autoSelected = m_chooser.getSelected();
 
-        try {
-            m_autonomousCommand = m_robotContainer.getAutonomousCommand2(m_autoSelected, eventMap);
-        } catch (Exception e) {
-            System.out.println("Error loading autonomous command: " + e.getMessage());
-            e.printStackTrace();
-        }
+    try {
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand2(m_autoSelected, eventMap);
+    } catch (Exception e) {
+      System.out.println("Error loading autonomous command: " + e.getMessage());
+      e.printStackTrace();
+    }
 
-        // schedule the autonomous command (example)
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-        } else {
-            System.out.println("No auto selected or failed to run");
-        }
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    } else {
+      System.out.println("No auto selected or failed to run");
+    }
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {
@@ -141,14 +158,15 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //ArmSpin armgo = new ArmSpin();
+    // ArmSpin armgo = new ArmSpin();
+    // Button definitions
     RobotContainer.armout.whileTrue(new ArmOut());
     RobotContainer.armin.whileTrue(new PullArmIn());
     RobotContainer.armlift.whileTrue(new ArmRotateUp());
     RobotContainer.armlower.whileTrue(new ArmRotateDown());
     RobotContainer.Close.onTrue(new Grab());
     RobotContainer.Open.onTrue(new Drop());
-    
+
   }
 
   @Override
@@ -159,7 +177,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 
   private String[] getPaths() {
     // read the autos folder and get all the classes
@@ -168,18 +187,20 @@ public class Robot extends TimedRobot {
     File dir = new File(Filesystem.getDeployDirectory() + "/pathplanner");
     File[] directoryListing = dir.listFiles();
     if (directoryListing == null) {
-        return new String[0];
+      return new String[0];
     }
 
     String[] paths = new String[directoryListing.length];
     for (int i = 0; i < directoryListing.length; i++) {
-        String name = directoryListing[i].getName();
-        
-        paths[i] = name.substring(0, name.length() - 5);
-        /*if (name.endsWith(".path")) {
-        } */
+      String name = directoryListing[i].getName();
+
+      paths[i] = name.substring(0, name.length() - 5);
+      /*
+       * if (name.endsWith(".path")) {
+       * }
+       */
     }
     return paths;
-}
+  }
 }
 // drew was here

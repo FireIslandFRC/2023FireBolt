@@ -17,7 +17,7 @@ import frc.robot.Constants;
 
 public class Swerve extends SubsystemBase {
   private final Pigeon2 gyro;
-  //private final ADIS16470_IMU gyro;
+  // private final ADIS16470_IMU gyro;
 
   private SwerveDriveOdometry swerveOdometry;
   private SwerveModule[] mSwerveMods;
@@ -25,20 +25,18 @@ public class Swerve extends SubsystemBase {
   private Field2d field;
 
   public Swerve() {
-    //gyro = new ADIS16470_IMU();
+    // gyro = new ADIS16470_IMU();
     gyro = new Pigeon2(30);
-    //gyro.configFactoryDefault();
+    // gyro.configFactoryDefault();
     zeroGyro();
 
-    mSwerveMods =
-        new SwerveModule[] {
-          new SwerveModule(0, Constants.Swerve.Mod0.constants),
-          new SwerveModule(1, Constants.Swerve.Mod1.constants),
-          new SwerveModule(2, Constants.Swerve.Mod2.constants),
-          new SwerveModule(3, Constants.Swerve.Mod3.constants)
-        };
+    mSwerveMods = new SwerveModule[] {
+        new SwerveModule(0, Constants.Swerve.Mod0.constants),
+        new SwerveModule(1, Constants.Swerve.Mod1.constants),
+        new SwerveModule(2, Constants.Swerve.Mod2.constants),
+        new SwerveModule(3, Constants.Swerve.Mod3.constants)
+    };
     swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getPositions());
-
 
     field = new Field2d();
     SmartDashboard.putData("Field", field);
@@ -46,12 +44,11 @@ public class Swerve extends SubsystemBase {
 
   public void drive(
       Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
-    SwerveModuleState[] swerveModuleStates =
-        Constants.Swerve.swerveKinematics.toSwerveModuleStates(
-            fieldRelative
-                ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                    translation.getX(), translation.getY(), rotation, getYaw())
-                : new ChassisSpeeds(translation.getX(), translation.getY(), rotation));
+    SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(
+        fieldRelative
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                translation.getX(), translation.getY(), rotation, getYaw())
+            : new ChassisSpeeds(translation.getX(), translation.getY(), rotation));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
     for (SwerveModule mod : mSwerveMods) {
@@ -87,9 +84,9 @@ public class Swerve extends SubsystemBase {
     return states;
   }
 
-  public SwerveModulePosition[] getPositions(){
+  public SwerveModulePosition[] getPositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
-    for(SwerveModule mod : mSwerveMods){
+    for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber("position: module " + mod.moduleNumber, mod.getPosition().distanceMeters);
       SmartDashboard.putNumber("angle: module " + mod.moduleNumber, mod.getPosition().angle.getDegrees());
       positions[mod.moduleNumber] = mod.getPosition();

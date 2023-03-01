@@ -1,24 +1,24 @@
 package frc.robot.commands.Arm;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.RobotMap;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.Variables;
-public class ArmRestGrabPos extends CommandBase{
 
-	public static boolean done = false;
+public class ArmRestGrabPos extends CommandBase {
 
-    @Override
-    public void initialize(){}
+    public static boolean done = false;
 
     @Override
-    public void execute(){
-        if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestGrabPosition){
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+        if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestGrabPosition) {
             Functions.Un_Brake();
             Functions.Arm_lift(-0.6);
-        }else if(RobotMap.Arm_Motor_Encoder.getPosition() < Variables.ArmRestGrabPosition){
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() < Variables.ArmRestGrabPosition) {
             Functions.Brake();
             Functions.Stop_lift();
             done = true;
@@ -26,14 +26,12 @@ public class ArmRestGrabPos extends CommandBase{
     }
 
     @Override
-    public void end(boolean interrupted)
-    {
+    public void end(boolean interrupted) {
 
     }
 
     @Override
-    public boolean isFinished()
-    {
+    public boolean isFinished() {
         return done;
     }
 }
