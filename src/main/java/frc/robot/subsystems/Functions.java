@@ -31,11 +31,11 @@ public class Functions {
     }
 
     public static void Grab() {
-        RobotMap.EndEffector.set(Value.kReverse);
+        RobotMap.EndEffector.set(Value.kForward);
     }
 
     public static void Release() {
-        RobotMap.EndEffector.set(Value.kForward);
+        RobotMap.EndEffector.set(Value.kReverse);
     }
 
     public static boolean LimitValue() {

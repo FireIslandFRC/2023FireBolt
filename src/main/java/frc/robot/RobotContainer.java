@@ -55,19 +55,20 @@ public class RobotContainer {
   private final int rotationAxis = Joystick.kDefaultTwistChannel;
 
   /* Driver Buttons */
-  private final JoystickButton zeroGyro = new JoystickButton(driver, 5);
-  private final JoystickButton robotCentric = new JoystickButton(driver, 2);
-  private final JoystickButton slowSpeed = new JoystickButton(driver, 1);
-  public static final JoystickButton Close = new JoystickButton(op, 5);
+  public static final JoystickButton zeroGyro = new JoystickButton(driver, 5);
+  public static final JoystickButton robotCentric = new JoystickButton(driver, 2);
+  public static final JoystickButton slowSpeed = new JoystickButton(driver, 1);
+  public static final JoystickButton Grab = new JoystickButton(op, 5);
   public static final JoystickButton Open = new JoystickButton(op, 10);
   public static final JoystickButton armlift = new JoystickButton(op, 7);
   public static final JoystickButton armlower = new JoystickButton(op, 8);
   public static final JoystickButton armout = new JoystickButton(op, 13);
   public static final JoystickButton armin = new JoystickButton(op, 14);
+  public static final JoystickButton ArmGrabRest = new JoystickButton(op, 16);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  public CommandBase meat = Commands.sequence(new PrintCommand("not auto"));
+  public CommandBase meat = Commands.sequence(new PrintCommand("no auto"));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -131,7 +132,7 @@ public class RobotContainer {
         eventMap,
         true,
         s_Swerve);
-    // conedock autonomous
+    // place cone/cube and then dock autonomous
     if (pathName.equals("ConeDock")) {
       meat = Commands.sequence(
           new RaiseToTopCone(),
@@ -140,7 +141,7 @@ public class RobotContainer {
           new ArmRetract(),
           new ArmRest(),
           builder.fullAuto(path.get(0)));
-      // conepickdock autonomous
+      // place cone/cube, pick up a second cone/cube then dock autonomous
     } else if (pathName.equals("ConePickDock")) {
       meat = Commands.sequence(
           new RaiseToTopCone(),
@@ -151,7 +152,7 @@ public class RobotContainer {
           builder.fullAuto(path.get(0)),
           new Grab(),
           builder.fullAuto(path.get(1)));
-      // Cone autonomous
+      // place cone/cube then taxi autonomous
     } else if (pathName.equals("Cone")) {
       meat = Commands.sequence(
           new PrintCommand("potato code"),
@@ -161,14 +162,18 @@ public class RobotContainer {
           new ArmRetract(),
           new ArmRest(),
           builder.fullAuto(path.get(0)));
-      // ConePick autonomous
+      // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("ConePick")) {
       meat = Commands.sequence(
           new RaiseToTopCone(),
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
-          new ArmRest(),
+          new ArmRestGrabPos(),
+          builder.fullAuto(path.get(0)),
+          new Grab());
+    } else if (pathName.equals("taxi")) {
+      meat = Commands.sequence(
           builder.fullAuto(path.get(0)));
     }
     // returns the Meat of the auto

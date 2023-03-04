@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
 import frc.robot.commands.Arm.ArmOut;
+import frc.robot.commands.Arm.ArmRestGrabPos;
 import frc.robot.commands.Arm.ArmRotateDown;
 import frc.robot.commands.Arm.ArmRotateUp;
 import frc.robot.commands.Arm.Drop;
@@ -164,8 +165,9 @@ public class Robot extends TimedRobot {
     RobotContainer.armin.whileTrue(new PullArmIn());
     RobotContainer.armlift.whileTrue(new ArmRotateUp());
     RobotContainer.armlower.whileTrue(new ArmRotateDown());
-    RobotContainer.Close.onTrue(new Grab());
+    RobotContainer.Grab.onTrue(new Grab());
     RobotContainer.Open.onTrue(new Drop());
+    RobotContainer.ArmGrabRest.onTrue(new ArmRestGrabPos());
 
   }
 

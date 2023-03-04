@@ -28,16 +28,19 @@ public final class Constants {
   }
 
   public static final class Variables {
+    public static double ArmDropSpeed = -0.6;
     public static double ArmExtendSpeed = 0.6;
-    public static double ArmRestPosition = 4;
+    public static double ArmRetractSpeed = -0.6;
+    public static double ArmRestPosition = 10;
     public static double ArmRestGrabPosition = 20;
     public static double ArmLiftSpeed = 0.6;
+    public static double ArmRetractPostion = 4;
     public static double ArmExtendPostion = 20;
     public static double TopNodePosition = 110;
   }
 
   public static final class Swerve {
-    public static final double stickDeadband = 0.1;
+    public static final double stickDeadband = 0.05;
 
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
