@@ -20,7 +20,7 @@ public class ArmRotateDown extends CommandBase {
     @Override
     public void execute() {
         Functions.Un_Brake();
-        Functions.Arm_lift(-Variables.ArmLiftSpeed);
+        Functions.Arm_lift(Variables.ArmDropSpeed);
     }
 
     @Override
