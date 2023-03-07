@@ -16,13 +16,17 @@ import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Compressor;
 
 import frc.robot.commands.*;
 import frc.robot.commands.Arm.ArmRest;
@@ -42,12 +46,13 @@ import frc.robot.commands.AutoCommands.RaiseToTopCone;
  * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer extends TimedRobot{
 
   /* Controllers */
   private final static Joystick driver = new Joystick(0);
-  private final static Joystick op = new Joystick(1);
+  private final static XboxController op = new XboxController(1);
   public final double auto = -1;
+
 
   /* Drive Controls */
   private final int translationAxis = Joystick.kDefaultYChannel;
@@ -58,13 +63,14 @@ public class RobotContainer {
   public static final JoystickButton zeroGyro = new JoystickButton(driver, 5);
   public static final JoystickButton robotCentric = new JoystickButton(driver, 2);
   public static final JoystickButton slowSpeed = new JoystickButton(driver, 1);
-  public static final JoystickButton Grab = new JoystickButton(op, 5);
-  public static final JoystickButton Open = new JoystickButton(op, 10);
-  public static final JoystickButton armlift = new JoystickButton(op, 7);
-  public static final JoystickButton armlower = new JoystickButton(op, 8);
-  public static final JoystickButton armout = new JoystickButton(op, 13);
-  public static final JoystickButton armin = new JoystickButton(op, 14);
-  public static final JoystickButton ArmGrabRest = new JoystickButton(op, 16);
+  public static final JoystickButton Grab = new JoystickButton(op, 7);
+  public static final JoystickButton Drop = new JoystickButton(op, 8);
+  public static final JoystickButton armlift = new JoystickButton(op, 1);
+  public static final JoystickButton armlower = new JoystickButton(op, 2);
+  public static final JoystickButton armout = new JoystickButton(op, 5);
+  public static final JoystickButton armin = new JoystickButton(op, 6);
+  public static final JoystickButton ArmGrabRest = new JoystickButton(op, 4);
+  public static final JoystickButton Brake = new JoystickButton(op, 3);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();

@@ -20,12 +20,7 @@ public class PullArmIn extends CommandBase {
 
     @Override
     public void execute() {
-        if (!Functions.LimitValue()) {
             Functions.Arm_extend(-Variables.ArmExtendSpeed);
-        } else {
-            new PrintCommand("Stop!!!!!!!!!");
-        }
-
     }
 
     @Override

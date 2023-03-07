@@ -20,9 +20,7 @@ public class ArmOut extends CommandBase {
 
     @Override
     public void execute() {
-        if (!Functions.LimitValue()) {
             Functions.Arm_extend(Variables.ArmExtendSpeed);
-        }
     }
 
     @Override
