@@ -7,17 +7,23 @@ package frc.robot;
 import java.io.File;
 import java.util.HashMap;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.lib.config.CTREConfigs;
+import frc.robot.Constants.Swerve;
+import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Arm.ArmOut;
 import frc.robot.commands.Arm.ArmRestGrabPos;
 import frc.robot.commands.Arm.ArmRotateDown;
 import frc.robot.commands.Arm.ArmRotateUp;
+import frc.robot.commands.Arm.Brake;
 import frc.robot.commands.Arm.Drop;
 import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
@@ -43,6 +49,8 @@ public class Robot extends TimedRobot {
   private static String[] paths;
   private String m_autoSelected;
 
+  private final Swerve s_Swerve = new Swerve();
+  Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
   CameraServer camera;
 
   /**
@@ -58,7 +66,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
+    compressor.enableDigital();
     paths = this.getPaths();
     if (paths.length > 0) {
       kDefaultAuto = paths[0];
@@ -165,11 +173,13 @@ public class Robot extends TimedRobot {
     RobotContainer.armin.whileTrue(new PullArmIn());
     RobotContainer.armlift.whileTrue(new ArmRotateUp());
     RobotContainer.armlower.whileTrue(new ArmRotateDown());
-    RobotContainer.Grab.onTrue(new Grab());
-    RobotContainer.Open.onTrue(new Drop());
+    RobotContainer.Brake.whileTrue(new Brake());
+    RobotContainer.Grab.whileTrue(new Grab());
+    RobotContainer.Drop.whileTrue(new Drop());
     RobotContainer.ArmGrabRest.onTrue(new ArmRestGrabPos());
-
+    
   }
+
 
   @Override
   public void testInit() {

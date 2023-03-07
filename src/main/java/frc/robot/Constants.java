@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.lib.config.SwerveModuleConstants;
+import frc.robot.commands.TeleopSwerve;
 
 public final class Constants {
 
@@ -28,12 +29,12 @@ public final class Constants {
   }
 
   public static final class Variables {
-    public static double ArmDropSpeed = -0.6;
+    public static double ArmDropSpeed = -0.4;
     public static double ArmExtendSpeed = 0.6;
     public static double ArmRetractSpeed = -0.6;
     public static double ArmRestPosition = 10;
     public static double ArmRestGrabPosition = 20;
-    public static double ArmLiftSpeed = 0.6;
+    public static double ArmLiftSpeed = 0.4;
     public static double ArmRetractPostion = 4;
     public static double ArmExtendPostion = 20;
     public static double TopNodePosition = 110;
@@ -148,6 +149,9 @@ public final class Constants {
       public static final Rotation2d angleOffset = Rotation2d.fromDegrees(49 + 180);
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
           canCoderID, angleOffset);
+    }
+
+    public void setDefaultCommand(TeleopSwerve teleopSwerve) {
     }
   }
 
