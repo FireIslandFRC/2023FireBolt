@@ -25,7 +25,8 @@ public final class Constants {
     public static RelativeEncoder Arm_Motor_Encoder = Arm_Motor.getEncoder();
     public static RelativeEncoder Arm_Extend_Motor_Encoder = Arm_Extend_Motor.getEncoder();
     public static DoubleSolenoid EndEffector = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 3, 4);
-    public static DigitalInput LimitSwitch = new DigitalInput(0);
+    public static DigitalInput LimitSwitchInOut = new DigitalInput(0);
+    public static DigitalInput LimitSwitchUpDown = new DigitalInput(1);
   }
 
   public static final class Variables {

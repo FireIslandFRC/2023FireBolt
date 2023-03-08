@@ -20,7 +20,7 @@ public class ArmOutTop extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() < Variables.ArmExtendPostion && !Functions.LimitValue()) {
+        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() < Variables.ArmExtendPostion && !Functions.LimitInOutValue()) {
             Functions.Arm_extend(0.6);
         } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > Variables.ArmExtendPostion) {
             Functions.Stop_extend();

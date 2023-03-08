@@ -38,9 +38,14 @@ public class Functions {
         RobotMap.EndEffector.set(Value.kReverse);
     }
 
-    public static boolean LimitValue() {
-        boolean value = RobotMap.LimitSwitch.get();
-        return value;
+    public static boolean LimitInOutValue() {
+        boolean valueInOut = RobotMap.LimitSwitchInOut.get();
+        return valueInOut;
+    }
+
+    public static boolean LimitUpDownValue() {
+            boolean valueUpDown = RobotMap.LimitSwitchUpDown.get();
+            return valueUpDown;
     }
 
 }

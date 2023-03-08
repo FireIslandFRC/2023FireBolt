@@ -2,7 +2,6 @@ package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.Constants.Variables;
 import frc.robot.subsystems.*;
 
@@ -20,7 +19,11 @@ public class PullArmIn extends CommandBase {
 
     @Override
     public void execute() {
+        if (Functions.LimitInOutValue()){
             Functions.Arm_extend(-Variables.ArmExtendSpeed);
+        }else if(!Functions.LimitInOutValue()){
+            Functions.Stop_extend();
+        }
     }
 
     @Override

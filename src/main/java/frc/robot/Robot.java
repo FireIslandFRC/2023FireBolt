@@ -15,18 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Commands;
 import frc.lib.config.CTREConfigs;
 import frc.robot.Constants.Swerve;
-import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.Arm.ArmOut;
-import frc.robot.commands.Arm.ArmRestGrabPos;
-import frc.robot.commands.Arm.ArmRotateDown;
-import frc.robot.commands.Arm.ArmRotateUp;
-import frc.robot.commands.Arm.Brake;
-import frc.robot.commands.Arm.Drop;
-import frc.robot.commands.Arm.Grab;
-import frc.robot.commands.Arm.PullArmIn;
 import edu.wpi.first.cameraserver.CameraServer;
 
 //import io.github.oblarg.oblog.Logger;
@@ -48,8 +38,8 @@ public class Robot extends TimedRobot {
   private static String kDefaultAuto;
   private static String[] paths;
   private String m_autoSelected;
+  public final Swerve s_Swerve = new Swerve();
 
-  private final Swerve s_Swerve = new Swerve();
   Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
   CameraServer camera;
 
@@ -169,17 +159,27 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // ArmSpin armgo = new ArmSpin();
     // Button definitions
-    RobotContainer.armout.whileTrue(new ArmOut());
+    /*RobotContainer.armout.whileTrue(new ArmOut());
     RobotContainer.armin.whileTrue(new PullArmIn());
     RobotContainer.armlift.whileTrue(new ArmRotateUp());
     RobotContainer.armlower.whileTrue(new ArmRotateDown());
     RobotContainer.Brake.whileTrue(new Brake());
     RobotContainer.Grab.whileTrue(new Grab());
     RobotContainer.Drop.whileTrue(new Drop());
-    RobotContainer.ArmGrabRest.onTrue(new ArmRestGrabPos());
-    
-  }
+    RobotContainer.ArmGrabRest.onTrue(new ArmRestGrabPos());*/
 
+    //RobotContainer.armlower.
+    
+    
+    /*if (RobotContainer.armlift.equals(RobotContainer.armlower)){
+      RobotContainer.armlift.whileFalse(new ArmRotateOff());
+    };
+
+    if (RobotContainer.armin.equals(RobotContainer.armout)){
+      RobotContainer.armin.whileFalse(new PullArmOff());
+    }; */
+
+  }
 
   @Override
   public void testInit() {
@@ -199,8 +199,8 @@ public class Robot extends TimedRobot {
     File dir = new File(Filesystem.getDeployDirectory() + "/pathplanner");
     File[] directoryListing = dir.listFiles();
     if (directoryListing == null) {
-      return new String[0];
-    }
+       return new String[0];
+     }
 
     String[] paths = new String[directoryListing.length];
     for (int i = 0; i < directoryListing.length; i++) {

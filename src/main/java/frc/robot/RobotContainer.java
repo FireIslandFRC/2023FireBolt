@@ -16,23 +16,23 @@ import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.Compressor;
-
 import frc.robot.commands.*;
+import frc.robot.commands.Arm.ArmOut;
 import frc.robot.commands.Arm.ArmRest;
 import frc.robot.commands.Arm.ArmRestGrabPos;
+import frc.robot.commands.Arm.ArmRotateDown;
+import frc.robot.commands.Arm.ArmRotateUp;
 import frc.robot.commands.Arm.Drop;
 import frc.robot.commands.Arm.Grab;
+import frc.robot.commands.Arm.PullArmIn;
 import frc.robot.commands.AutoCommands.ArmOutTop;
 import frc.robot.commands.AutoCommands.ArmRetract;
 import frc.robot.commands.AutoCommands.RaiseToTopCone;
@@ -73,7 +73,7 @@ public class RobotContainer extends TimedRobot{
   public static final JoystickButton Brake = new JoystickButton(op, 3);
 
   /* Subsystems */
-  private final Swerve s_Swerve = new Swerve();
+  public final Swerve s_Swerve = new Swerve();
   public CommandBase meat = Commands.sequence(new PrintCommand("no auto"));
 
   /**
@@ -103,6 +103,17 @@ public class RobotContainer extends TimedRobot{
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+    armlower.whileTrue(new ArmRotateDown());
+    armout.whileTrue(new ArmOut());
+    armin.whileTrue(new PullArmIn());
+    armlift.whileTrue(new ArmRotateUp());
+    armlower.whileTrue(new ArmRotateDown());
+    Brake.whileTrue(new Brake(true));
+    Grab.whileTrue(new Grab());
+    Drop.whileTrue(new Drop());
+    ArmGrabRest.onTrue(new ArmRestGrabPos());
+
   }
 
   /**
@@ -141,6 +152,7 @@ public class RobotContainer extends TimedRobot{
     // place cone/cube and then dock autonomous
     if (pathName.equals("ConeDock")) {
       meat = Commands.sequence(
+          new Grab(),
           new RaiseToTopCone(),
           new ArmOutTop(),
           new Drop(),
@@ -150,6 +162,7 @@ public class RobotContainer extends TimedRobot{
       // place cone/cube, pick up a second cone/cube then dock autonomous
     } else if (pathName.equals("ConePickDock")) {
       meat = Commands.sequence(
+          new Grab(),
           new RaiseToTopCone(),
           new ArmOutTop(),
           new Drop(),
@@ -161,16 +174,17 @@ public class RobotContainer extends TimedRobot{
       // place cone/cube then taxi autonomous
     } else if (pathName.equals("Cone")) {
       meat = Commands.sequence(
-          new PrintCommand("potato code"),
+          new Grab(),
           new RaiseToTopCone(),
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
-          new ArmRest(),
-          builder.fullAuto(path.get(0)));
+          new ArmRest());
+          /* builder.fullAuto(path.get(0))); */
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("ConePick")) {
       meat = Commands.sequence(
+          new Grab(),
           new RaiseToTopCone(),
           new ArmOutTop(),
           new Drop(),

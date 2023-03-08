@@ -1,27 +1,26 @@
 package frc.robot.commands.Arm;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
 //this is drew
-public class Brake extends CommandBase {
+public class PullArmOff extends CommandBase {
 
     public static boolean done = false;
 
     @Override
     public void initialize() {
-        done = false;
+        Functions.Arm_extend(0);
+        done = true;
     }
 
     @Override
     public void execute() {
-        Functions.Stop_lift();
-        Functions.Brake();
     }
 
     @Override
     public void end(boolean interrupted) {
-        Functions.Stop_lift();
-        Functions.Brake();
+        done = true;
     }
 
     @Override
