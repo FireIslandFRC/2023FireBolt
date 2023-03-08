@@ -134,8 +134,8 @@ public class RobotContainer extends TimedRobot{
      * Path spesific information. Getting paths defined by name and organizing
      * command groups
      */
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
-        3);
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
+        2);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTopCone());
 
@@ -176,9 +176,11 @@ public class RobotContainer extends TimedRobot{
       meat = Commands.sequence(
           new Grab(),
           new RaiseToTopCone(),
+          builder.fullAuto(path.get(0)),
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
+          builder.fullAuto(path.get(1)),
           new ArmRest());
           /* builder.fullAuto(path.get(0))); */
       // place cone/cube then pick up another cone/cube autonomous
