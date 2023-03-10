@@ -15,14 +15,20 @@ public class ArmRest extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestPosition) {
-            Functions.Un_Brake();
-            Functions.Arm_lift(-0.6);
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() <= Variables.ArmRestPosition) {
-            Functions.Brake();
-            Functions.Stop_lift();
-            done = true;
+        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > 0.5){
+            Functions.Arm_extend(-0.8);
+        }else if(RobotMap.Arm_Extend_Motor_Encoder.getPosition() <= 0.5){
+            Functions.Arm_extend(0);
+            if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestPosition) {
+                    Functions.Un_Brake();
+                    Functions.Arm_lift(-0.6);
+                } else if (RobotMap.Arm_Motor_Encoder.getPosition() <= Variables.ArmRestPosition) {
+                    Functions.Brake();
+                    Functions.Stop_lift();
+                    done = true;
+            }
         }
+        
     }
 
     @Override

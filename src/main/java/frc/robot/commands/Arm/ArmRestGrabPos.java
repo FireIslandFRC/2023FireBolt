@@ -15,10 +15,10 @@ public class ArmRestGrabPos extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestGrabPosition) {
+        if (RobotMap.Arm_Motor_Encoder.getPosition() < Variables.ArmRestGrabPosition) {
             Functions.Un_Brake();
-            Functions.Arm_lift(-0.6);
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() < Variables.ArmRestGrabPosition) {
+            Functions.Arm_lift(0.6);
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() >= Variables.ArmRestGrabPosition) {
             Functions.Brake();
             Functions.Stop_lift();
             done = true;

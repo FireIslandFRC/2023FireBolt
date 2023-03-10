@@ -46,13 +46,12 @@ import frc.robot.commands.AutoCommands.RaiseToTopCone;
  * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer extends TimedRobot{
+public class RobotContainer extends TimedRobot {
 
   /* Controllers */
   private final static Joystick driver = new Joystick(0);
   private final static XboxController op = new XboxController(1);
   public final double auto = -1;
-
 
   /* Drive Controls */
   private final int translationAxis = Joystick.kDefaultYChannel;
@@ -70,7 +69,7 @@ public class RobotContainer extends TimedRobot{
   public static final JoystickButton armout = new JoystickButton(op, 5);
   public static final JoystickButton armin = new JoystickButton(op, 6);
   public static final JoystickButton ArmGrabRest = new JoystickButton(op, 4);
-  public static final JoystickButton Brake = new JoystickButton(op, 3);
+  public static final JoystickButton ArmRest = new JoystickButton(op, 3);
 
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
@@ -109,7 +108,7 @@ public class RobotContainer extends TimedRobot{
     armin.whileTrue(new PullArmIn());
     armlift.whileTrue(new ArmRotateUp());
     armlower.whileTrue(new ArmRotateDown());
-    Brake.whileTrue(new Brake(true));
+    ArmRest.onTrue(new ArmRest());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
     ArmGrabRest.onTrue(new ArmRestGrabPos());
@@ -138,6 +137,7 @@ public class RobotContainer extends TimedRobot{
         2);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTopCone());
+    eventMap.put("x", new ArmRest()); // matches x button
 
     SwerveAutoBuilder builder = new SwerveAutoBuilder(
         s_Swerve::getPose,
@@ -154,11 +154,11 @@ public class RobotContainer extends TimedRobot{
       meat = Commands.sequence(
           new Grab(),
           new RaiseToTopCone(),
+          builder.fullAuto(path.get(0)),
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
-          new ArmRest(),
-          builder.fullAuto(path.get(0)));
+          builder.fullAuto(path.get(1)));
       // place cone/cube, pick up a second cone/cube then dock autonomous
     } else if (pathName.equals("ConePickDock")) {
       meat = Commands.sequence(
@@ -182,7 +182,7 @@ public class RobotContainer extends TimedRobot{
           new ArmRetract(),
           builder.fullAuto(path.get(1)),
           new ArmRest());
-          /* builder.fullAuto(path.get(0))); */
+      /* builder.fullAuto(path.get(0))); */
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("ConePick")) {
       meat = Commands.sequence(
@@ -196,6 +196,13 @@ public class RobotContainer extends TimedRobot{
           new Grab());
     } else if (pathName.equals("taxi")) {
       meat = Commands.sequence(
+          builder.fullAuto(path.get(0)));
+    }else if (pathName.equals("MiddleConeDock")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToTopCone(),
+          new ArmOutTop(),
+          new Drop(),
           builder.fullAuto(path.get(0)));
     }
     // returns the Meat of the auto

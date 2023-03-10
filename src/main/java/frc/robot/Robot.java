@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
+import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Swerve;
+import frc.robot.subsystems.Functions;
 import edu.wpi.first.cameraserver.CameraServer;
 
 //import io.github.oblarg.oblog.Logger;
@@ -67,6 +69,9 @@ public class Robot extends TimedRobot {
       m_chooser.setDefaultOption(kDefaultAuto, kDefaultAuto);
     }
     SmartDashboard.putData("Autonomous Selection", m_chooser);
+
+    RobotMap.Arm_Extend_Motor_Encoder.setPosition(0);
+    RobotMap.Arm_Motor_Encoder.setPosition(0);
   }
 
   /**

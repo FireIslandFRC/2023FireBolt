@@ -1,5 +1,6 @@
 package frc.robot.commands.Arm;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Variables;
 import frc.robot.subsystems.*;
@@ -17,7 +18,11 @@ public class ArmRotateUp extends CommandBase {
     @Override
     public void execute() {
         Functions.Un_Brake();
+        if (Functions.LimitUpDownValue()){
         Functions.Arm_lift(Variables.ArmLiftSpeed);
+        }else if(!Functions.LimitUpDownValue()){
+            Functions.Stop_lift();
+        }
     }
 
     @Override

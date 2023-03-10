@@ -20,10 +20,11 @@ public class ArmRetract extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > Variables.ArmRetractPostion && !Functions.LimitInOutValue()) {
+        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > Variables.ArmRetractPostion) {
             Functions.Arm_extend(Variables.ArmRetractSpeed);
-        } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() < Variables.ArmRetractPostion) {
+        } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() <= Variables.ArmRetractPostion) {
             Functions.Stop_extend();
+            done = true;
         }
     }
 
