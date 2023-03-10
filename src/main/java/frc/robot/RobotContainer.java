@@ -201,9 +201,12 @@ public class RobotContainer extends TimedRobot {
       meat = Commands.sequence(
           new Grab(),
           new RaiseToTopCone(),
+          builder.fullAuto(path.get(0)),
           new ArmOutTop(),
           new Drop(),
-          builder.fullAuto(path.get(0)));
+          new ArmRetract(),
+          builder.fullAuto(path.get(1)),
+          new ArmRest());
     }
     // returns the Meat of the auto
     return meat;
