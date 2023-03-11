@@ -35,6 +35,7 @@ import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
 import frc.robot.commands.AutoCommands.ArmOutTop;
 import frc.robot.commands.AutoCommands.ArmRetract;
+import frc.robot.commands.AutoCommands.RaiseToBottom;
 import frc.robot.commands.AutoCommands.RaiseToTopCone;
 
 /**
@@ -108,7 +109,6 @@ public class RobotContainer extends TimedRobot {
     armin.whileTrue(new PullArmIn());
     armlift.whileTrue(new ArmRotateUp());
     armlower.whileTrue(new ArmRotateDown());
-    ArmRest.onTrue(new ArmRest());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
     ArmGrabRest.onTrue(new ArmRestGrabPos());
@@ -133,8 +133,8 @@ public class RobotContainer extends TimedRobot {
      * Path spesific information. Getting paths defined by name and organizing
      * command groups
      */
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
-        2);
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,        
+    1);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTopCone());
     eventMap.put("x", new ArmRest()); // matches x button
@@ -205,8 +205,18 @@ public class RobotContainer extends TimedRobot {
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
-          builder.fullAuto(path.get(1)),
-          new ArmRest());
+          builder.fullAuto(path.get(1)));
+    }else if (pathName.equals("Dock")) {
+      meat = Commands.sequence(
+          builder.fullAuto(path.get(0)));
+    } else if (pathName.equals("Bottom")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToBottom(),
+          new Drop(),
+          builder.fullAuto(path.get(0)));
+      /* builder.fullAuto(path.get(0))); */
+      // place cone/cube then pick up another cone/cube autonomous
     }
     // returns the Meat of the auto
     return meat;

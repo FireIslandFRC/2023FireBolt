@@ -14,6 +14,14 @@ public class Functions {
         RobotMap.Arm_Extend_Motor.set(speed);
     }
 
+    public static void Arm_Retract(double speed) {
+        if(LimitInOutValue()){
+        RobotMap.Arm_Extend_Motor.set(-speed);
+        }else{
+            Stop_extend();
+        }
+    }
+
     public static void Stop_extend() {
         RobotMap.Arm_Extend_Motor.set(0);
     }

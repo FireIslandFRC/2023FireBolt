@@ -31,14 +31,14 @@ public final class Constants {
 
   public static final class Variables {
     public static double ArmDropSpeed = -0.4;
-    public static double ArmExtendSpeed = 0.9;
-    public static double ArmRetractSpeed = -0.9;
+    public static double ArmExtendSpeed = 1;
+    public static double ArmRetractSpeed = -1;
     public static double ArmRestPosition = 10;
     public static double ArmRestGrabPosition = 81;
     public static double ArmLiftSpeed = 0.4;
     public static double ArmRetractPostion = 4;
-    public static double ArmExtendPostion = 100;
-    public static double TopNodePosition = 95;
+    public static double ArmExtendPostion = 5;
+    public static double TopNodePosition = 80;
   }
 
   public static final class Swerve {

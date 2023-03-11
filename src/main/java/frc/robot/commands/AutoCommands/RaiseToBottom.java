@@ -6,7 +6,7 @@ import frc.robot.Constants.Variables;
 import frc.robot.subsystems.*;
 
 //this is drew
-public class RaiseToTopCone extends CommandBase {
+public class RaiseToBottom extends CommandBase {
 
     public static boolean done = false;
 
@@ -17,13 +17,13 @@ public class RaiseToTopCone extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Motor_Encoder.getPosition() < Variables.TopNodePosition) {
+        if (RobotMap.Arm_Motor_Encoder.getPosition() < 20) {
             Functions.Un_Brake();
             if (Functions.LimitUpDownValue()){
                 Functions.Arm_lift(Variables.ArmLiftSpeed);
             } else if (!Functions.LimitUpDownValue()){
                 Functions.Arm_lift(Variables.ArmLiftSpeed);}
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.TopNodePosition) {
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() > 20) {
             Functions.Brake();
             done = true;
         }

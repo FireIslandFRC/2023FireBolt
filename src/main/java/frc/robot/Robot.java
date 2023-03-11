@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     compressor.enableDigital();
     paths = this.getPaths();
     if (paths.length > 0) {
-      kDefaultAuto = paths[0];
+      kDefaultAuto = paths[1];
 
       for (String path : paths) {
         m_chooser.addOption(path, path);
