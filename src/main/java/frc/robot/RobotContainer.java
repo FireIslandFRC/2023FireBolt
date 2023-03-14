@@ -133,8 +133,8 @@ public class RobotContainer extends TimedRobot {
      * Path spesific information. Getting paths defined by name and organizing
      * command groups
      */
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,        
-    1);
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
+        1);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTopCone());
     eventMap.put("x", new ArmRest()); // matches x button
@@ -197,7 +197,7 @@ public class RobotContainer extends TimedRobot {
     } else if (pathName.equals("taxi")) {
       meat = Commands.sequence(
           builder.fullAuto(path.get(0)));
-    }else if (pathName.equals("MiddleConeDock")) {
+    } else if (pathName.equals("MiddleConeDock")) {
       meat = Commands.sequence(
           new Grab(),
           new RaiseToTopCone(),
@@ -206,18 +206,10 @@ public class RobotContainer extends TimedRobot {
           new Drop(),
           new ArmRetract(),
           builder.fullAuto(path.get(1)));
-    }else if (pathName.equals("Dock")) {
+    } else if (pathName.equals("Dock")) {
       meat = Commands.sequence(
           builder.fullAuto(path.get(0)));
-    }else if (pathName.equals("Bottom")) {
-      meat = Commands.sequence(
-          new Grab(),
-          new RaiseToBottom(),
-          new Drop(),
-          builder.fullAuto(path.get(0)));
-      /* builder.fullAuto(path.get(0))); */
-      // place cone/cube then pick up another cone/cube autonomous
-    }else if (pathName.equals("BottomDock")) {
+    } else if (pathName.equals("Bottom")) {
       meat = Commands.sequence(
           new Grab(),
           new RaiseToBottom(),
@@ -225,6 +217,26 @@ public class RobotContainer extends TimedRobot {
           builder.fullAuto(path.get(0)));
       /* builder.fullAuto(path.get(0))); */
       // place cone/cube then pick up another cone/cube autonomous
+    } else if (pathName.equals("BottomMiddleDock")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToBottom(),
+          new Drop(),
+          builder.fullAuto(path.get(0)));
+      /* builder.fullAuto(path.get(0))); */
+      // place cone/cube then pick up another cone/cube autonomous
+    } else if (pathName.equals("BottomShortDock")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToBottom(),
+          new Drop(),
+          builder.fullAuto(path.get(0)));
+    } else if (pathName.equals("BottomLongDock")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToBottom(),
+          new Drop(),
+          builder.fullAuto(path.get(0)));
     }
     // returns the Meat of the auto
     return meat;
