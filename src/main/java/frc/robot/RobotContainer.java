@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.Arm.ArmOut;
 import frc.robot.commands.Arm.ArmRest;
-import frc.robot.commands.Arm.ArmRestGrabPos;
+import frc.robot.commands.Arm.ArmGrabPos;
 import frc.robot.commands.Arm.ArmRotateDown;
 import frc.robot.commands.Arm.ArmRotateUp;
 import frc.robot.commands.Arm.Drop;
@@ -69,8 +69,8 @@ public class RobotContainer extends TimedRobot {
   public static final JoystickButton armlower = new JoystickButton(op, 2);
   public static final JoystickButton armout = new JoystickButton(op, 5);
   public static final JoystickButton armin = new JoystickButton(op, 6);
-  public static final JoystickButton ArmGrabRest = new JoystickButton(op, 4);
-  public static final JoystickButton ArmRest = new JoystickButton(op, 3);
+  public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
+  public static final JoystickButton BottomPick = new JoystickButton(op, 3);
 
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
@@ -111,8 +111,8 @@ public class RobotContainer extends TimedRobot {
     armlower.whileTrue(new ArmRotateDown());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
-    ArmGrabRest.onTrue(new ArmRestGrabPos());
-
+    GrabDoubSub.onTrue(new ArmGrabPos());
+    BottomPick.onTrue(new ArmGrabPos());
   }
 
   /**
@@ -167,7 +167,7 @@ public class RobotContainer extends TimedRobot {
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
-          new ArmRestGrabPos(),
+          new ArmGrabPos(),
           builder.fullAuto(path.get(0)),
           new Grab(),
           builder.fullAuto(path.get(1)));
@@ -191,7 +191,7 @@ public class RobotContainer extends TimedRobot {
           new ArmOutTop(),
           new Drop(),
           new ArmRetract(),
-          new ArmRestGrabPos(),
+          new ArmGrabPos(),
           builder.fullAuto(path.get(0)),
           new Grab());
     } else if (pathName.equals("taxi")) {

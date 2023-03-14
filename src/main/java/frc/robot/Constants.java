@@ -34,11 +34,12 @@ public final class Constants {
     public static double ArmExtendSpeed = 1;
     public static double ArmRetractSpeed = -1;
     public static double ArmRestPosition = 10;
-    public static double ArmRestGrabPosition = 81;
+    public static double ArmRestGrabPosition = 20;
     public static double ArmLiftSpeed = 0.4;
     public static double ArmRetractPostion = 4;
     public static double ArmExtendPostion = 5;
     public static double TopNodePosition = 80;
+    public static double GrabDoubSubPos = 80;
   }
 
   public static final class Swerve {

@@ -5,7 +5,7 @@ import frc.robot.Constants.RobotMap;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.Variables;
 
-public class ArmRestGrabPos extends CommandBase {
+public class GrabDoubSub extends CommandBase {
 
     public static boolean done = false;
 
