@@ -209,7 +209,15 @@ public class RobotContainer extends TimedRobot {
     }else if (pathName.equals("Dock")) {
       meat = Commands.sequence(
           builder.fullAuto(path.get(0)));
-    } else if (pathName.equals("Bottom")) {
+    }else if (pathName.equals("Bottom")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToBottom(),
+          new Drop(),
+          builder.fullAuto(path.get(0)));
+      /* builder.fullAuto(path.get(0))); */
+      // place cone/cube then pick up another cone/cube autonomous
+    }else if (pathName.equals("BottomDock")) {
       meat = Commands.sequence(
           new Grab(),
           new RaiseToBottom(),
