@@ -33,6 +33,7 @@ import frc.robot.commands.Arm.ArmRotateUp;
 import frc.robot.commands.Arm.Drop;
 import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
+import frc.robot.commands.Arm.GrabDoubSub;
 import frc.robot.commands.AutoCommands.ArmOutTop;
 import frc.robot.commands.AutoCommands.ArmRetract;
 import frc.robot.commands.AutoCommands.RaiseToBottom;
@@ -111,8 +112,8 @@ public class RobotContainer extends TimedRobot {
     armlower.whileTrue(new ArmRotateDown());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
-    GrabDoubSub.onTrue(new ArmGrabPos());
-    BottomPick.onTrue(new ArmGrabPos());
+    GrabDoubSub.whileTrue(new GrabDoubSub());
+    BottomPick.whileTrue(new ArmGrabPos());
   }
 
   /**
