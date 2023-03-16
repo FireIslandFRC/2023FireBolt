@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+// Imports a robot package.// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 //Imports start here
@@ -33,7 +33,6 @@ import frc.robot.commands.Arm.ArmRotateUp;
 import frc.robot.commands.Arm.Drop;
 import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
-import frc.robot.commands.Arm.GrabDoubSub;
 import frc.robot.commands.AutoCommands.ArmOutTop;
 import frc.robot.commands.AutoCommands.ArmRetract;
 import frc.robot.commands.AutoCommands.RaiseToBottom;
@@ -79,6 +78,9 @@ public class RobotContainer extends TimedRobot {
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
+  /**
+   * Constructs a new RobotContainer.
    */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -133,6 +135,12 @@ public class RobotContainer extends TimedRobot {
     /*
      * Path spesific information. Getting paths defined by name and organizing
      * command groups
+     */
+    /**
+     * Returns a command that will drive the robot to the specified path.
+     *
+     * @param pathName The name of the path to drive to.
+     * @return The command that will drive the robot to the specified path.
      */
     List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
         1);
