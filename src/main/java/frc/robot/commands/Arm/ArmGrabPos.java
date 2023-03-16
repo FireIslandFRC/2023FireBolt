@@ -19,7 +19,7 @@ public class ArmGrabPos extends CommandBase {
         if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestGrabPosition) {
             Functions.Un_Brake();
             Functions.Arm_lift(-0.6);
-        } else{
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() <= Variables.ArmRestGrabPosition){
             Functions.Brake();
             Functions.Stop_lift();
             done = true;
