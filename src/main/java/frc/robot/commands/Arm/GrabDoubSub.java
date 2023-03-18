@@ -15,16 +15,17 @@ public class GrabDoubSub extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Motor_Encoder.getPosition() < Variables.ArmRestGrabPosition) {
+        if (RobotMap.Arm_Motor_Encoder.getPosition() < Variables.GrabDoubSubPos /*80*/) {
             Functions.Un_Brake();
             Functions.Arm_lift(0.6);
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() >= Variables.ArmRestGrabPosition) {
+        } 
+        else {
             Functions.Brake();
             Functions.Stop_lift();
             done = true;
         }
     }
-
+  
     @Override
     public void end(boolean interrupted) {
 

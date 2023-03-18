@@ -15,10 +15,11 @@ public class ArmGrabPos extends CommandBase {
 
     @Override
     public void execute() {
+        RobotMap.Arm_Motor_Encoder.getPosition();
         if (RobotMap.Arm_Motor_Encoder.getPosition() > Variables.ArmRestGrabPosition) {
             Functions.Un_Brake();
-            Functions.Arm_lift(0.6);
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() <= Variables.ArmRestGrabPosition) {
+            Functions.Arm_lift(-0.6);
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() <= Variables.ArmRestGrabPosition){
             Functions.Brake();
             Functions.Stop_lift();
             done = true;
@@ -27,7 +28,8 @@ public class ArmGrabPos extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        Functions.Brake();
+        Functions.Stop_lift();
     }
 
     @Override

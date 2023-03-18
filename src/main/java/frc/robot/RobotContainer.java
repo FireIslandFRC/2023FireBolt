@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+// Imports a robot package.// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 //Imports start here
@@ -69,8 +69,8 @@ public class RobotContainer extends TimedRobot {
   public static final JoystickButton armlower = new JoystickButton(op, 2);
   public static final JoystickButton armout = new JoystickButton(op, 5);
   public static final JoystickButton armin = new JoystickButton(op, 6);
-  public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
-  public static final JoystickButton BottomPick = new JoystickButton(op, 3);
+  //public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
+  //public static final JoystickButton BottomPick = new JoystickButton(op, 3);
 
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
@@ -78,6 +78,9 @@ public class RobotContainer extends TimedRobot {
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
+  /**
+   * Constructs a new RobotContainer.
    */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -111,8 +114,8 @@ public class RobotContainer extends TimedRobot {
     armlower.whileTrue(new ArmRotateDown());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
-    GrabDoubSub.onTrue(new ArmGrabPos());
-    BottomPick.onTrue(new ArmGrabPos());
+    //GrabDoubSub.whileTrue(new GrabDoubSub());
+    //BottomPick.whileTrue(new ArmGrabPos());
   }
 
   /**
@@ -133,7 +136,17 @@ public class RobotContainer extends TimedRobot {
      * Path spesific information. Getting paths defined by name and organizing
      * command groups
      */
+<<<<<<< HEAD
     List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
+=======
+    /**
+     * Returns a command that will drive the robot to the specified path.
+     *
+     * @param pathName The name of the path to drive to.
+     * @return The command that will drive the robot to the specified path.
+     */
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
+>>>>>>> 207336f4ba85f30a8c3e0805b1ebb69d531de770
         1);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTopCone());

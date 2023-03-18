@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
 import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Swerve;
-import frc.robot.subsystems.Functions;
 import edu.wpi.first.cameraserver.CameraServer;
 
 //import io.github.oblarg.oblog.Logger;

@@ -41,7 +41,7 @@ public class TeleopSwerve extends CommandBase {
   @Override
   public void execute() {
 
-    double speedMultiplier = slowSpeedSup.getAsBoolean() ? 0.2 : 1.0;
+    double speedMultiplier = slowSpeedSup.getAsBoolean() ? 1.3 : 1.0;
 
     /* Get Values, Deadband */
     double translationVal = translationLimiter.calculate(

@@ -30,12 +30,12 @@ public final class Constants {
   }
 
   public static final class Variables {
-    public static double ArmDropSpeed = -0.4;
+    public static double ArmDropSpeed = -0.6;
     public static double ArmExtendSpeed = 1;
     public static double ArmRetractSpeed = -1;
     public static double ArmRestPosition = 10;
     public static double ArmRestGrabPosition = 20;
-    public static double ArmLiftSpeed = 0.4;
+    public static double ArmLiftSpeed = 0.6;
     public static double ArmRetractPostion = 4;
     public static double ArmExtendPostion = 5;
     public static double TopNodePosition = 80;
