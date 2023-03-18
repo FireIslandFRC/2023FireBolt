@@ -136,9 +136,6 @@ public class RobotContainer extends TimedRobot {
      * Path spesific information. Getting paths defined by name and organizing
      * command groups
      */
-<<<<<<< HEAD
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 1,
-=======
     /**
      * Returns a command that will drive the robot to the specified path.
      *
@@ -146,7 +143,6 @@ public class RobotContainer extends TimedRobot {
      * @return The command that will drive the robot to the specified path.
      */
     List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
->>>>>>> 207336f4ba85f30a8c3e0805b1ebb69d531de770
         1);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTopCone());
