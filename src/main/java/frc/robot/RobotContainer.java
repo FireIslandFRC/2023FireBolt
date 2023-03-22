@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.Arm.ArmOut;
@@ -35,7 +36,9 @@ import frc.robot.commands.Arm.Grab;
 import frc.robot.commands.Arm.PullArmIn;
 import frc.robot.commands.AutoCommands.ArmOutTop;
 import frc.robot.commands.AutoCommands.ArmRetract;
+import frc.robot.commands.AutoCommands.LowerArm;
 import frc.robot.commands.AutoCommands.RaiseToBottom;
+import frc.robot.commands.AutoCommands.RaiseToMiddle;
 import frc.robot.commands.AutoCommands.RaiseToTopCone;
 
 /**
@@ -245,6 +248,14 @@ public class RobotContainer extends TimedRobot {
           new Grab(),
           new RaiseToBottom(),
           new Drop(),
+          builder.fullAuto(path.get(0)));
+    } else if (pathName.equals("Middle")) {
+      meat = Commands.sequence(
+          new Grab(),
+          new RaiseToMiddle(),
+          new WaitCommand(1),
+          new Drop(),
+          new LowerArm(),
           builder.fullAuto(path.get(0)));
     }
     // returns the Meat of the auto
