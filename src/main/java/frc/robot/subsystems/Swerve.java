@@ -66,9 +66,9 @@ public class Swerve extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    SmartDashboard.putNumber("pose X", swerveOdometry.getPoseMeters().getX());
+    /*SmartDashboard.putNumber("pose X", swerveOdometry.getPoseMeters().getX());
     SmartDashboard.putNumber("pose Y", swerveOdometry.getPoseMeters().getY());
-    SmartDashboard.putNumber("gyro angle", gyro.getYaw());
+    SmartDashboard.putNumber("gyro angle", gyro.getYaw());*/
     return swerveOdometry.getPoseMeters();
   }
 
@@ -87,8 +87,8 @@ public class Swerve extends SubsystemBase {
   public SwerveModulePosition[] getPositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
     for (SwerveModule mod : mSwerveMods) {
-      SmartDashboard.putNumber("position: module " + mod.moduleNumber, mod.getPosition().distanceMeters);
-      SmartDashboard.putNumber("angle: module " + mod.moduleNumber, mod.getPosition().angle.getDegrees());
+      /*SmartDashboard.putNumber("position: module " + mod.moduleNumber, mod.getPosition().distanceMeters);
+      SmartDashboard.putNumber("angle: module " + mod.moduleNumber, mod.getPosition().angle.getDegrees());*/
       positions[mod.moduleNumber] = mod.getPosition();
     }
     return positions;
@@ -96,6 +96,10 @@ public class Swerve extends SubsystemBase {
 
   public void zeroGyro() {
     gyro.setYaw(0);
+  }
+
+  public void zeroGyro180() {
+    gyro.setYaw(180);
   }
 
   public Rotation2d getYaw() {
@@ -110,12 +114,12 @@ public class Swerve extends SubsystemBase {
     field.setRobotPose(getPose());
 
     for (SwerveModule mod : mSwerveMods) {
-      SmartDashboard.putNumber(
+      /*SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
       SmartDashboard.putNumber(
-          "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+          "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);*/
     }
   }
 }
