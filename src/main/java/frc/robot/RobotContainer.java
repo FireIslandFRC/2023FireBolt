@@ -72,8 +72,10 @@ public class RobotContainer extends TimedRobot {
   public static final JoystickButton armlower = new JoystickButton(op, 2);
   public static final JoystickButton armout = new JoystickButton(op, 5);
   public static final JoystickButton armin = new JoystickButton(op, 6);
-  //public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
-  //public static final JoystickButton BottomPick = new JoystickButton(op, 3);
+  public static final JoystickButton AutoBalance = new JoystickButton(driver, 7);
+  public static final JoystickButton Vision = new JoystickButton(driver,8);
+  // public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
+  // public static final JoystickButton BottomPick = new JoystickButton(op, 3);
 
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
@@ -117,8 +119,10 @@ public class RobotContainer extends TimedRobot {
     armlower.whileTrue(new ArmRotateDown());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
-    //GrabDoubSub.whileTrue(new GrabDoubSub());
-    //BottomPick.whileTrue(new ArmGrabPos());
+    Vision.whileTrue(new LineUp());
+    //AutoBalance.whileTrue(new AutoLevel());
+    // GrabDoubSub.whileTrue(new GrabDoubSub());
+    // BottomPick.whileTrue(new ArmGrabPos());
   }
 
   /**
@@ -164,7 +168,7 @@ public class RobotContainer extends TimedRobot {
     // place cone/cube and then dock autonomous
     if (pathName.equals("ConeDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToTop(),
           builder.fullAuto(path.get(0)),
@@ -175,7 +179,7 @@ public class RobotContainer extends TimedRobot {
       // place cone/cube, pick up a second cone/cube then dock autonomous
     } else if (pathName.equals("ConePickDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToTop(),
           new ArmOutTop(),
@@ -188,7 +192,7 @@ public class RobotContainer extends TimedRobot {
       // place cone/cube then taxi autonomous
     } else if (pathName.equals("Cone")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToTop(),
           builder.fullAuto(path.get(0)),
@@ -201,7 +205,7 @@ public class RobotContainer extends TimedRobot {
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("ConePick")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToTop(),
           new ArmOutTop(),
@@ -212,13 +216,13 @@ public class RobotContainer extends TimedRobot {
           new Grab());
     } else if (pathName.equals("taxi")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           builder.fullAuto(path.get(0)));
     } else if (pathName.equals("MiddleConeDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
-          new RaiseToTop(),
+          new RaiseToMiddle(),
           builder.fullAuto(path.get(0)),
           new ArmOutTop(),
           new Drop(),
@@ -226,11 +230,11 @@ public class RobotContainer extends TimedRobot {
           builder.fullAuto(path.get(1)));
     } else if (pathName.equals("Dock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           builder.fullAuto(path.get(0)));
     } else if (pathName.equals("Bottom")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToBottom(),
           new Drop(),
@@ -239,7 +243,7 @@ public class RobotContainer extends TimedRobot {
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("BottomMiddleDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToBottom(),
           new Drop(),
@@ -248,21 +252,21 @@ public class RobotContainer extends TimedRobot {
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("BottomShortDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToBottom(),
           new Drop(),
           builder.fullAuto(path.get(0)));
     } else if (pathName.equals("BottomLongDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToBottom(),
           new Drop(),
           builder.fullAuto(path.get(0)));
     } else if (pathName.equals("Middle")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
           new WaitCommand(1),
@@ -271,35 +275,34 @@ public class RobotContainer extends TimedRobot {
           builder.fullAuto(path.get(0)));
     } else if (pathName.equals("MiddleLongDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
           new WaitCommand(1),
           new Drop(),
           new LowerArm(),
           builder.fullAuto(path.get(0)));
-    }else if (pathName.equals("MiddleShortDock")) {
+    } else if (pathName.equals("MiddleShortDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
           new WaitCommand(1),
           new Drop(),
           new LowerArm(),
           builder.fullAuto(path.get(0)));
-    }else if (pathName.equals("MiddleMiddleDock")) {
+    } else if (pathName.equals("MiddleMiddleDock")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
           new WaitCommand(1),
           new Drop(),
           new LowerArm(),
           builder.fullAuto(path.get(0)));
-    }else if (pathName.equals("Nothing")) {
+    } else if (pathName.equals("Nothing")) {
       meat = Commands.sequence(
-        new InstantCommand(() -> s_Swerve.zeroGyro180())
-          );
+          new InstantCommand(() -> s_Swerve.zeroGyro180()));
     }
     // returns the Meat of the auto
     return meat;
