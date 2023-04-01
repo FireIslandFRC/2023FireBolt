@@ -1,6 +1,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Variables;
@@ -20,19 +21,21 @@ public class ArmRetract extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > Variables.ArmRetractPostion) {
-            Functions.Arm_extend(Variables.ArmRetractSpeed);
-        } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() <= Variables.ArmRetractPostion) {
-            Functions.Stop_extend();
-            done = true;
-        }
+        // if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() > Variables.ArmRetractPostion) {
+        //     Functions.Arm_extend(Variables.ArmRetractSpeed);
+        // } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() <= Variables.ArmRetractPostion) {
+        //     Functions.Stop_extend();
+        //     done = true;
+        // }
+        RobotMap.Arm_Extend_Piston_1.set(Value.kReverse);
+        RobotMap.Arm_Extend_Piston_2.set(Value.kReverse);
     }
 
     @Override
     public void end(boolean interrupted) {
         done = true;
-        Functions.Arm_extend(0);
-        Functions.Stop_extend();
+        // Functions.Arm_extend(0);
+        // Functions.Stop_extend();
     }
 
     @Override

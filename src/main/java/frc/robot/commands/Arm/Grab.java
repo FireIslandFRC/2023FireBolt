@@ -24,8 +24,8 @@ public class Grab extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         done = true;
-        Functions.Arm_extend(0);
-        Functions.Stop_extend();
+        // Functions.Arm_extend(0);
+        // Functions.Stop_extend();
     }
 
     @Override

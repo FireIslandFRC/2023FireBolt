@@ -20,10 +20,12 @@ public final class Constants {
 
   public static final class RobotMap {
     public static CANSparkMax Arm_Motor = new CANSparkMax(10, MotorType.kBrushless);
-    public static CANSparkMax Arm_Extend_Motor = new CANSparkMax(9, MotorType.kBrushless);
+    //public static CANSparkMax Arm_Extend_Motor = new CANSparkMax(9, MotorType.kBrushless);
+    public static DoubleSolenoid Arm_Extend_Piston_1 = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 5, 6);
+    public static DoubleSolenoid Arm_Extend_Piston_2 = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 7, 8);
     public static DoubleSolenoid Brake = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 1, 2);
     public static RelativeEncoder Arm_Motor_Encoder = Arm_Motor.getEncoder();
-    public static RelativeEncoder Arm_Extend_Motor_Encoder = Arm_Extend_Motor.getEncoder();
+    //public static RelativeEncoder Arm_Extend_Motor_Encoder = Arm_Extend_Motor.getEncoder();
     public static DoubleSolenoid EndEffector = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 3, 4);
     public static DigitalInput LimitSwitchInOut = new DigitalInput(0);
     public static DigitalInput LimitSwitchUpDown = new DigitalInput(1);

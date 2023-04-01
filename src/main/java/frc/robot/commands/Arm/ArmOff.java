@@ -20,14 +20,14 @@ public class ArmOff extends CommandBase {
 
     @Override
     public void execute() {
-            Functions.Arm_extend(Variables.ArmExtendSpeed);
+            Functions.Arm_extend();
     }
 
     @Override
     public void end(boolean interrupted) {
         done = true;
-        Functions.Arm_extend(0);
-        Functions.Stop_extend();
+        // Functions.Arm_extend();
+        // Functions.Stop_extend();
     }
 
     @Override
