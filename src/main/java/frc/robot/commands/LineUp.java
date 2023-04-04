@@ -17,8 +17,8 @@ public class LineUp extends CommandBase {
 
     @Override
     public void execute() {
-        Functions.LineUp();
-        done = true;
+/*         Functions.LineUp();
+ */        done = true;
     }
 
     @Override

@@ -56,7 +56,7 @@ public class Functions {
     public static boolean LimitUpDownValue() {
             boolean valueUpDown = RobotMap.LimitSwitchUpDown.get();
             return valueUpDown;
-    }
+    }/* 
    public static void LineUp() {
      double x = vision.tx.getDouble(0.0);
     double y = vision.ty.getDouble(0.0);
@@ -66,7 +66,7 @@ public class Functions {
         new ChassisSpeeds(0, 0, -.1);
     }
         
-    };
+    }; */
 
    }
 
