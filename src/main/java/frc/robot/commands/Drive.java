@@ -14,6 +14,13 @@ public class Drive extends CommandBase {
   private Double translationSup;
   private Double strafeSup;
   private Double rotationSup;
+  private BooleanSupplier robotCentricSup;
+  private BooleanSupplier slowSpeedSup;
+
+  private SlewRateLimiter translationLimiter = new SlewRateLimiter(3.0);
+  private SlewRateLimiter strafeLimiter = new SlewRateLimiter(3.0);
+  private SlewRateLimiter rotationLimiter = new SlewRateLimiter(4.0);
+
   public Drive(
       Swerve s_Swerve,
       Double translationSup,
