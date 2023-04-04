@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -13,6 +14,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+//import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.lib.config.SwerveModuleConstants;
 import frc.robot.commands.TeleopSwerve;
 
@@ -27,6 +29,8 @@ public final class Constants {
     public static DoubleSolenoid EndEffector = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 3, 4);
     public static DigitalInput LimitSwitchInOut = new DigitalInput(0);
     public static DigitalInput LimitSwitchUpDown = new DigitalInput(1);
+    public static Pigeon2 gyro = new Pigeon2(30);
+
   }
 
   public static final class Variables {
@@ -40,6 +44,9 @@ public final class Constants {
     public static double ArmExtendPostion = 5;
     public static double TopNodePosition = 80;
     public static double GrabDoubSubPos = 80;
+    public static double xvalue;
+    public static double yvalue;
+    public static double twistvalue;
   }
 
   public static final class Swerve {

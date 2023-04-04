@@ -12,11 +12,11 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.sensors.Pigeon2;
+//import com.ctre.phoenix.sensors.Pigeon2;
 import frc.robot.Constants;
+import frc.robot.Constants.RobotMap;
 
 public class Swerve extends SubsystemBase {
-  private final Pigeon2 gyro;
   // private final ADIS16470_IMU gyro;
 
   private SwerveDriveOdometry swerveOdometry;
@@ -26,7 +26,6 @@ public class Swerve extends SubsystemBase {
 
   public Swerve() {
     // gyro = new ADIS16470_IMU();
-    gyro = new Pigeon2(30);
     // gyro.configFactoryDefault();
     zeroGyro();
 
@@ -95,17 +94,17 @@ public class Swerve extends SubsystemBase {
   }
 
   public void zeroGyro() {
-    gyro.setYaw(0);
+    RobotMap.gyro.setYaw(0);
   }
 
   public void zeroGyro180() {
-    gyro.setYaw(180);
+    RobotMap.gyro.setYaw(180);
   }
 
   public Rotation2d getYaw() {
     return (Constants.Swerve.invertGyro)
-        ? Rotation2d.fromDegrees(360 - gyro.getYaw())
-        : Rotation2d.fromDegrees(gyro.getYaw());
+        ? Rotation2d.fromDegrees(360 - RobotMap.gyro.getYaw())
+        : Rotation2d.fromDegrees(RobotMap.gyro.getYaw());
   }
 
   @Override

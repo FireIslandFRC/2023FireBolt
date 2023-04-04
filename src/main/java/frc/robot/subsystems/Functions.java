@@ -58,7 +58,7 @@ public class Functions {
             return valueUpDown;
     }
    public static void LineUp() {
-     double x = vision.tx.getDouble(0.0);
+     //double x = vision.tx.getDouble(0.0);
     double y = vision.ty.getDouble(0.0);
     if (y < 0){
         new ChassisSpeeds(0, 0, .1);

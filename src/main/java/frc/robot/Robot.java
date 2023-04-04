@@ -77,7 +77,8 @@ public class Robot extends TimedRobot {
 
     RobotMap.Arm_Extend_Motor_Encoder.setPosition(0);
     RobotMap.Arm_Motor_Encoder.setPosition(0);
-  }
+  }//01101001 00100000 01101100 01101111 01110110 01100101 00100000 01111001 01101111 01110101
+  //binary for i love you
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for

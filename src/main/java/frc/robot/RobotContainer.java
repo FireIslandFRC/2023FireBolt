@@ -89,7 +89,15 @@ public class RobotContainer extends TimedRobot {
    */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
-        new TeleopSwerve(
+        /*new TeleopSwerve(
+            s_Swerve,
+            () -> -driver.getRawAxis(translationAxis) * 0.75,
+            () -> -driver.getRawAxis(strafeAxis) * 0.75,
+            () -> -driver.getRawAxis(rotationAxis) * 0.5,
+            () -> robotCentric.getAsBoolean(),
+            () -> slowSpeed.getAsBoolean()));*/
+            
+          new TeleopSwerve(
             s_Swerve,
             () -> -driver.getRawAxis(translationAxis) * 0.75,
             () -> -driver.getRawAxis(strafeAxis) * 0.75,
