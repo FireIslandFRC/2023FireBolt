@@ -6,18 +6,14 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
-import frc.robot.commands.TeleopSwerve;
-
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
 
 public class Drive extends CommandBase {
   private Swerve s_Swerve;
   private Double translationSup;
   private Double strafeSup;
   private Double rotationSup;
-  private BooleanSupplier robotCentricSup;
-  private BooleanSupplier slowSpeedSup;
+  ////private BooleanSupplier robotCentricSup;
+  //private BooleanSupplier slowSpeedSup;
 
   private SlewRateLimiter translationLimiter = new SlewRateLimiter(3.0);
   private SlewRateLimiter strafeLimiter = new SlewRateLimiter(3.0);

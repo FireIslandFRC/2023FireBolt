@@ -68,6 +68,11 @@ public class Robot extends TimedRobot {
       m_chooser.setDefaultOption(kDefaultAuto, kDefaultAuto);
     }
     SmartDashboard.putData("Autonomous Selection", m_chooser);
+    /*SmartDashboard.putString("Y", // Shows the vertical location of the object to the camera.
+      "Y = " + String.format("%.3f", Functions.y));
+    SmartDashboard.putString("X", // Shows the horizontal location of the object to the camera.
+      "X = " + String.format("%.3f", Functions.x));*/
+    
 
     //RobotMap.Arm_Extend_Motor_Encoder.setPosition(0);
     RobotMap.Arm_Motor_Encoder.setPosition(0);
@@ -93,6 +98,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods. This must be called from the
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run();
     //posts to dashboard periodically
     
     
