@@ -1,13 +1,10 @@
 // package frc.robot.commands;
 
-<<<<<<< HEAD
 // import edu.wpi.first.wpilibj2.command.CommandBase;
 // import frc.robot.subsystems.Swerve;
-=======
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Functions;
-import frc.robot.subsystems.Swerve;
->>>>>>> parent of e81b77b (Potential LimeLight)
+//import edu.wpi.first.wpilibj2.command.CommandBase;
+//import frc.robot.subsystems.Functions;
+//import frc.robot.subsystems.Swerve;
 
 // import edu.wpi.first.wpilibj.Timer;
 
