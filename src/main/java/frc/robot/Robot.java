@@ -19,8 +19,11 @@ import frc.lib.config.CTREConfigs;
 import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Swerve;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import frc.robot.subsystems.Functions;
 import frc.robot.subsystems.vision;
+=======
+>>>>>>> parent of e81b77b (Potential LimeLight)
 =======
 >>>>>>> parent of e81b77b (Potential LimeLight)
 import edu.wpi.first.cameraserver.CameraServer;
@@ -100,6 +103,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 <<<<<<< HEAD
+<<<<<<< HEAD
     SmartDashboard.putString("Y", // Shows the vertical location of the object to the camera.
       "Y = " + String.format("%.3f", vision.ty));
     SmartDashboard.putString("X", // Shows the horizontal location of the object to the camera.
@@ -109,6 +113,8 @@ public class Robot extends TimedRobot {
     
     
     
+=======
+>>>>>>> parent of e81b77b (Potential LimeLight)
 =======
 >>>>>>> parent of e81b77b (Potential LimeLight)
   }

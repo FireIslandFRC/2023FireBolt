@@ -73,11 +73,16 @@ public class RobotContainer extends TimedRobot {
   public static final JoystickButton armout = new JoystickButton(op, 5);
   public static final JoystickButton armin = new JoystickButton(op, 6);
 <<<<<<< HEAD
+<<<<<<< HEAD
   //public static final JoystickButton AutoBalance = new JoystickButton(driver, 7);
   public static final JoystickButton Vision = new JoystickButton(driver,8);
   //public static final JoystickButton AutoLevel = new JoystickButton(driver,6);
   // public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
   // public static final JoystickButton BottomPick = new JoystickButton(op, 3);
+=======
+  //public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
+  //public static final JoystickButton BottomPick = new JoystickButton(op, 3);
+>>>>>>> parent of e81b77b (Potential LimeLight)
 =======
   //public static final JoystickButton GrabDoubSub = new JoystickButton(op, 4);
   //public static final JoystickButton BottomPick = new JoystickButton(op, 3);
@@ -126,11 +131,16 @@ public class RobotContainer extends TimedRobot {
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
 <<<<<<< HEAD
+<<<<<<< HEAD
     Vision.whileTrue(new LineUp());
     //AutoLevel.whileTrue(new frc.robot.commands.AutoLevel());
     //AutoBalance.whileTrue(new AutoLevel());
     // GrabDoubSub.whileTrue(new GrabDoubSub());
     // BottomPick.whileTrue(new ArmGrabPos());
+=======
+    //GrabDoubSub.whileTrue(new GrabDoubSub());
+    //BottomPick.whileTrue(new ArmGrabPos());
+>>>>>>> parent of e81b77b (Potential LimeLight)
 =======
     //GrabDoubSub.whileTrue(new GrabDoubSub());
     //BottomPick.whileTrue(new ArmGrabPos());
