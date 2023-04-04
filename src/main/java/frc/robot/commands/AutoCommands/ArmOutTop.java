@@ -1,6 +1,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Variables;
@@ -20,20 +21,22 @@ public class ArmOutTop extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() < Variables.ArmExtendPostion) {
-            Functions.Arm_extend(0.6);
-        } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() >= Variables.ArmExtendPostion) {
-            Functions.Stop_extend();
-            end(false);
-        }
+        // if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() < Variables.ArmExtendPostion) {
+        //     Functions.Arm_extend(0.6);
+        // } else if (RobotMap.Arm_Extend_Motor_Encoder.getPosition() >= Variables.ArmExtendPostion) {
+        //     Functions.Stop_extend();
+        //     end(false);
+        // }
+        RobotMap.Arm_Extend_Piston_1.set(Value.kForward);
+        RobotMap.Arm_Extend_Piston_2.set(Value.kForward);
 
     }
 
     @Override
     public void end(boolean interrupted) {
         done = true;
-        Functions.Arm_extend(0);
-        Functions.Stop_extend();
+        // Functions.Arm_extend(0);
+        // Functions.Stop_extend();
     }
 
     @Override

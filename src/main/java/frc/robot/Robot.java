@@ -18,7 +18,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
 import frc.robot.Constants.RobotMap;
 import frc.robot.Constants.Swerve;
+<<<<<<< HEAD
 import frc.robot.subsystems.Functions;
+import frc.robot.subsystems.vision;
+=======
+>>>>>>> parent of e81b77b (Potential LimeLight)
 import edu.wpi.first.cameraserver.CameraServer;
 
 //import io.github.oblarg.oblog.Logger;
@@ -42,7 +46,7 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   public final Swerve s_Swerve = new Swerve();
 
-  Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
+  //Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
   CameraServer camera;
 
   /**
@@ -58,7 +62,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    compressor.enableDigital();
+    //compressor.enableDigital();
     paths = this.getPaths();
     if (paths.length > 0) {
       kDefaultAuto = paths[1];
@@ -69,13 +73,8 @@ public class Robot extends TimedRobot {
       m_chooser.setDefaultOption(kDefaultAuto, kDefaultAuto);
     }
     SmartDashboard.putData("Autonomous Selection", m_chooser);
-    SmartDashboard.putString("Y", // Shows the vertical location of the object to the camera.
-      "Y = " + String.format("%.3f", Functions.y));
-    SmartDashboard.putString("X", // Shows the horizontal location of the object to the camera.
-      "X = " + String.format("%.3f", Functions.x));
-    
 
-    RobotMap.Arm_Extend_Motor_Encoder.setPosition(0);
+    //RobotMap.Arm_Extend_Motor_Encoder.setPosition(0);
     RobotMap.Arm_Motor_Encoder.setPosition(0);
   }
 
@@ -100,11 +99,18 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+<<<<<<< HEAD
+    SmartDashboard.putString("Y", // Shows the vertical location of the object to the camera.
+      "Y = " + String.format("%.3f", vision.ty));
+    SmartDashboard.putString("X", // Shows the horizontal location of the object to the camera.
+      "X = " + String.format("%.3f", vision.tx));
     //posts to dashboard periodically
     
     
     
     
+=======
+>>>>>>> parent of e81b77b (Potential LimeLight)
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
