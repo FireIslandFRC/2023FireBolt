@@ -4,6 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 import java.util.function.BooleanSupplier;
@@ -18,9 +19,9 @@ public class TeleopSwerve extends CommandBase {
   private BooleanSupplier slowSpeedSup;
   private BooleanSupplier autoLevel;
 
-  private double translationVal;
-  private double strafeVal;
-  private double rotationVal;
+  private double translationVal = 0;
+  private double strafeVal = 0;
+  private double rotationVal = 0;
 
   private SlewRateLimiter translationLimiter = new SlewRateLimiter(3.0);
   private SlewRateLimiter strafeLimiter = new SlewRateLimiter(3.0);
@@ -46,38 +47,41 @@ public class TeleopSwerve extends CommandBase {
   }
 
   @Override
+  public void initialize() {
+  }
+
+  @Override
   public void execute() {
 
     double speedMultiplier = slowSpeedSup.getAsBoolean() ? 1.3 : 1.0;
 
     /* Translation Values */
     if (autoLevel.getAsBoolean()) {
-
-      double translationVal = 0;
+      translationVal = 0;
+      new PrintCommand("translationVal");
     } else {
-      double translationVal = translationLimiter.calculate(
-        speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband)
-      );
+      translationVal = translationLimiter.calculate(
+          speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
 
     /* Strafe Value */
     if (autoLevel.getAsBoolean()) {
-      double strafeVal = 0;
+      strafeVal = 0;
+      new PrintCommand("strafeVal");
     } else {
-      double strafeVal = strafeLimiter.calculate(
-        speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband)
-      );
+      strafeVal = strafeLimiter.calculate(
+          speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
 
     /* Rotation Value */
     if (autoLevel.getAsBoolean()) {
-      double RotationVal = 0;
-    }else{
-    double rotationVal = rotationLimiter.calculate(
-      speedMultiplier * MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband)
-    );
+      rotationVal = 0;
+      new PrintCommand("rotationVal");
+    } else {
+      rotationVal = rotationLimiter.calculate(
+          speedMultiplier * MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
-    
+
     /* Drive */
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),

@@ -120,7 +120,6 @@ public class RobotContainer extends TimedRobot {
     armlower.whileTrue(new ArmRotateDown());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
-    //AutoBalance.whileTrue(new AutoLevel());
     // GrabDoubSub.whileTrue(new GrabDoubSub());
     // BottomPick.whileTrue(new ArmGrabPos());
   }
