@@ -16,6 +16,11 @@ public class TeleopSwerve extends CommandBase {
   private DoubleSupplier rotationSup;
   private BooleanSupplier robotCentricSup;
   private BooleanSupplier slowSpeedSup;
+  private BooleanSupplier autoLevel;
+
+  private double translationVal;
+  private double strafeVal;
+  private double rotationVal;
 
   private SlewRateLimiter translationLimiter = new SlewRateLimiter(3.0);
   private SlewRateLimiter strafeLimiter = new SlewRateLimiter(3.0);
@@ -27,7 +32,8 @@ public class TeleopSwerve extends CommandBase {
       DoubleSupplier strafeSup,
       DoubleSupplier rotationSup,
       BooleanSupplier robotCentricSup,
-      BooleanSupplier slowSpeedSup) {
+      BooleanSupplier slowSpeedSup,
+      BooleanSupplier autoLevel) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
 
@@ -36,6 +42,7 @@ public class TeleopSwerve extends CommandBase {
     this.rotationSup = rotationSup;
     this.robotCentricSup = robotCentricSup;
     this.slowSpeedSup = slowSpeedSup;
+    this.autoLevel = autoLevel;
   }
 
   @Override
@@ -43,17 +50,34 @@ public class TeleopSwerve extends CommandBase {
 
     double speedMultiplier = slowSpeedSup.getAsBoolean() ? 1.3 : 1.0;
 
-    /* Get Values, Deadband */
-    double translationVal = translationLimiter.calculate(
-        speedMultiplier *
-            MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
-    double strafeVal = strafeLimiter.calculate(
-        speedMultiplier *
-            MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
-    double rotationVal = rotationLimiter.calculate(
-        speedMultiplier *
-            MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
+    /* Translation Values */
+    if (autoLevel.getAsBoolean()) {
 
+      double translationVal = 0;
+    } else {
+      double translationVal = translationLimiter.calculate(
+        speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband)
+      );
+    }
+
+    /* Strafe Value */
+    if (autoLevel.getAsBoolean()) {
+      double strafeVal = 0;
+    } else {
+      double strafeVal = strafeLimiter.calculate(
+        speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband)
+      );
+    }
+
+    /* Rotation Value */
+    if (autoLevel.getAsBoolean()) {
+      double RotationVal = 0;
+    }else{
+    double rotationVal = rotationLimiter.calculate(
+      speedMultiplier * MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband)
+    );
+    }
+    
     /* Drive */
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),

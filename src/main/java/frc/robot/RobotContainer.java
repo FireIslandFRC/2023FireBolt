@@ -95,7 +95,8 @@ public class RobotContainer extends TimedRobot {
             () -> -driver.getRawAxis(strafeAxis) * 0.75,
             () -> -driver.getRawAxis(rotationAxis) * 0.5,
             () -> robotCentric.getAsBoolean(),
-            () -> slowSpeed.getAsBoolean()));
+            () -> slowSpeed.getAsBoolean(),
+            () -> AutoBalance.getAsBoolean()));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -119,7 +120,6 @@ public class RobotContainer extends TimedRobot {
     armlower.whileTrue(new ArmRotateDown());
     Grab.whileTrue(new Grab());
     Drop.whileTrue(new Drop());
-    Vision.whileTrue(new LineUp());
     //AutoBalance.whileTrue(new AutoLevel());
     // GrabDoubSub.whileTrue(new GrabDoubSub());
     // BottomPick.whileTrue(new ArmGrabPos());
