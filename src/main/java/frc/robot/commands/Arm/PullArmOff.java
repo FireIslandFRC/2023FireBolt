@@ -10,7 +10,7 @@ public class PullArmOff extends CommandBase {
 
     @Override
     public void initialize() {
-        Functions.Arm_extend(0);
+        Functions.Arm_extend();
         done = true;
     }
 

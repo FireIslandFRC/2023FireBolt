@@ -12,20 +12,12 @@ public class Functions {
         RobotMap.Arm_Motor.set(speed1);
     }
 
-    public static void Arm_extend(double speed) {
-        RobotMap.Arm_Extend_Motor.set(speed);
+    public static void Arm_extend() {
+        RobotMap.Arm.set(Value.kForward);
     }
 
-    public static void Arm_Retract(double speed) {
-        if(LimitInOutValue()){
-        RobotMap.Arm_Extend_Motor.set(-speed);
-        }else{
-            Stop_extend();
-        }
-    }
-
-    public static void Stop_extend() {
-        RobotMap.Arm_Extend_Motor.set(0);
+    public static void Arm_Retract() {
+        RobotMap.Arm.set(Value.kReverse);
     }
 
     public static void Stop_lift() {

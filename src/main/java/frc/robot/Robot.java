@@ -75,7 +75,6 @@ public class Robot extends TimedRobot {
       "X = " + String.format("%.3f", Functions.x));
     
 
-    RobotMap.Arm_Extend_Motor_Encoder.setPosition(0);
     RobotMap.Arm_Motor_Encoder.setPosition(0);
   }//01101001 00100000 01101100 01101111 01110110 01100101 00100000 01111001 01101111 01110101
   //binary for i love you
