@@ -157,7 +157,7 @@ public class RobotContainer extends TimedRobot {
     SwerveAutoBuilder builder = new SwerveAutoBuilder(
         s_Swerve::getPose,
         s_Swerve::resetOdometry,
-        Constants.Swerve.swerveKinematics,
+        Constants.SwerveCon.swerveKinematics,
         new PIDConstants(1.5, 0, 0),
         new PIDConstants(3, 0, 0),
         s_Swerve::setModuleStates,
