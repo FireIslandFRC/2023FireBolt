@@ -45,8 +45,8 @@ public class TurnToAngleCommand extends CommandBase {
         }
 
         double err = angle - gyroAngle;
-        double speed = MathUtil.clamp(err * kP, -Constants.SwerveCon.maxAngularVelocity * 0.5,
-                Constants.SwerveCon.maxAngularVelocity * 0.5);
+        double speed = MathUtil.clamp(err * kP, -Constants.Swerve.maxAngularVelocity * 0.5,
+                Constants.Swerve.maxAngularVelocity * 0.5);
 
         if (Math.abs(err) > 2 && timer.get() < timeout) {
             m_robotDrive.drive(new Translation2d(0, 0), speed, false, true);

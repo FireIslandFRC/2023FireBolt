@@ -107,7 +107,7 @@ public class exampleAuto extends SequentialCommandGroup {
         new PPSwerveControllerCommand(
             trajectory1,
             s_Swerve::getPose,
-            Constants.SwerveCon.swerveKinematics,
+            Constants.Swerve.swerveKinematics,
             new PIDController(Constants.AutoConstants.kPXController, 0, 0),
             new PIDController(Constants.AutoConstants.kPYController, 0, 0),
             new PIDController(Constants.AutoConstants.kPThetaController, 0, 0),
@@ -117,7 +117,7 @@ public class exampleAuto extends SequentialCommandGroup {
           new PPSwerveControllerCommand(
               trajectory2,
               s_Swerve::getPose,
-              Constants.SwerveCon.swerveKinematics,
+              Constants.Swerve.swerveKinematics,
               new PIDController(Constants.AutoConstants.kPXController, 0, 0),
               new PIDController(Constants.AutoConstants.kPYController, 0, 0),
               new PIDController(Constants.AutoConstants.kPThetaController, 0, 0),
@@ -127,7 +127,7 @@ public class exampleAuto extends SequentialCommandGroup {
           new PPSwerveControllerCommand(
               trajectory3,
               s_Swerve::getPose,
-              Constants.SwerveCon.swerveKinematics,
+              Constants.Swerve.swerveKinematics,
               new PIDController(Constants.AutoConstants.kPXController, 0, 0),
               new PIDController(Constants.AutoConstants.kPYController, 0, 0),
               new PIDController(Constants.AutoConstants.kPThetaController, 0, 0),
@@ -137,7 +137,7 @@ public class exampleAuto extends SequentialCommandGroup {
             new PPSwerveControllerCommand(
                 trajectory4,
                 s_Swerve::getPose,
-                Constants.SwerveCon.swerveKinematics,
+                Constants.Swerve.swerveKinematics,
                 new PIDController(Constants.AutoConstants.kPXController, 0, 0),
                 new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                 new PIDController(Constants.AutoConstants.kPThetaController, 0, 0),

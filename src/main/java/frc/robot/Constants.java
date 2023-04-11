@@ -1,6 +1,5 @@
 package frc.robot;
 
-import com.ctre.phoenix.sensors.Pigeon2;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -43,13 +42,13 @@ public final class Constants {
     public static double GrabDoubSubPos = 80;
   }
 
-  public static final class SwerveCon {
+  public static final class Swerve {
     public static final double stickDeadband = 0.1;
 
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
     /* Pigeon */
-    public static final Pigeon2 pigeon = new Pigeon2(30);
+    public static final double pigeon = 30;
 
     /* Drivetrain Constants */
     public static final double trackWidth = Units.inchesToMeters(28);

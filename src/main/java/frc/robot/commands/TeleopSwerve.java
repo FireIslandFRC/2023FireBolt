@@ -6,8 +6,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.Constants;
-import frc.robot.Constants.RobotMap;
-import frc.robot.Constants.SwerveCon;
 import frc.robot.subsystems.Swerve;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -59,17 +57,11 @@ public class TeleopSwerve extends CommandBase {
 
     /* Translation Values */
     if (autoLevel.getAsBoolean()) {
-      if (SwerveCon.pigeon.getPitch() > 0){
-        new PrintCommand("Drive Foward");
-      }else if (SwerveCon.pigeon.getPitch() < 0){
-        new PrintCommand("Drive Back");
-      }else if(SwerveCon.pigeon.getPitch() == 0){
-        new PrintCommand("Good");
-      }
       translationVal = 0;
+      new PrintCommand("translationVal");
     } else {
       translationVal = translationLimiter.calculate(
-          speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.SwerveCon.stickDeadband));
+          speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
 
     /* Strafe Value */
@@ -78,7 +70,7 @@ public class TeleopSwerve extends CommandBase {
       new PrintCommand("strafeVal");
     } else {
       strafeVal = strafeLimiter.calculate(
-          speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.SwerveCon.stickDeadband));
+          speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
 
     /* Rotation Value */
@@ -87,13 +79,13 @@ public class TeleopSwerve extends CommandBase {
       new PrintCommand("rotationVal");
     } else {
       rotationVal = rotationLimiter.calculate(
-          speedMultiplier * MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.SwerveCon.stickDeadband));
+          speedMultiplier * MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
 
     /* Drive */
     s_Swerve.drive(
-        new Translation2d(translationVal, strafeVal).times(Constants.SwerveCon.maxSpeed),
-        rotationVal * Constants.SwerveCon.maxAngularVelocity,
+        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
+        rotationVal * Constants.Swerve.maxAngularVelocity,
         !robotCentricSup.getAsBoolean(),
         true);
   }
