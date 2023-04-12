@@ -48,6 +48,7 @@ public class TeleopSwerve extends CommandBase {
 
   @Override
   public void initialize() {
+
   }
 
   @Override
@@ -57,8 +58,15 @@ public class TeleopSwerve extends CommandBase {
 
     /* Translation Values */
     if (autoLevel.getAsBoolean()) {
-      translationVal = 0;
-      new PrintCommand("translationVal");
+      if (Constants.Swerve.gyro.getPitch() < -12){
+        translationVal = 0.15;
+      }else if (Constants.Swerve.gyro.getPitch() > 12){
+        translationVal = -0.15;
+      }else {
+        translationVal = 0;
+      }
+
+      System.out.println("lkjfahhsakjdsakjflsaksafdhlkasdfhlkjasdfasdghklsadfhjkjgsa");
     } else {
       translationVal = translationLimiter.calculate(
           speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
@@ -73,7 +81,7 @@ public class TeleopSwerve extends CommandBase {
           speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
     }
 
-    /* Rotation Value */
+    /* Rotation Value*/
     if (autoLevel.getAsBoolean()) {
       rotationVal = 0;
       new PrintCommand("rotationVal");

@@ -16,7 +16,6 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import frc.robot.Constants;
 
 public class Swerve extends SubsystemBase {
-  private final Pigeon2 gyro;
   // private final ADIS16470_IMU gyro;
 
   private SwerveDriveOdometry swerveOdometry;
@@ -26,7 +25,6 @@ public class Swerve extends SubsystemBase {
 
   public Swerve() {
     // gyro = new ADIS16470_IMU();
-    gyro = new Pigeon2(30);
     // gyro.configFactoryDefault();
     zeroGyro();
 
@@ -95,24 +93,25 @@ public class Swerve extends SubsystemBase {
   }
 
   public void zeroGyro() {
-    gyro.setYaw(0);
+    Constants.Swerve.gyro.setYaw(0);
   }
 
   public void zeroGyro180() {
-    gyro.setYaw(180);
+    Constants.Swerve.gyro.setYaw(180);
   }
 
   public Rotation2d getYaw() {
     return (Constants.Swerve.invertGyro)
-        ? Rotation2d.fromDegrees(360 - gyro.getYaw())
-        : Rotation2d.fromDegrees(gyro.getYaw());
+        ? Rotation2d.fromDegrees(360 - Constants.Swerve.gyro.getYaw())
+        : Rotation2d.fromDegrees(Constants.Swerve.gyro.getYaw());
   }
 
   @Override
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-
+    SmartDashboard.putNumber(
+      "Gyro", Constants.Swerve.gyro.getPitch());
     /*for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
