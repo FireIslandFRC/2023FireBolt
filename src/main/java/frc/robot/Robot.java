@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    compressor.enableDigital();
+    //compressor.enableDigital();
     paths = this.getPaths();
     if (paths.length > 0) {
       kDefaultAuto = paths[1];

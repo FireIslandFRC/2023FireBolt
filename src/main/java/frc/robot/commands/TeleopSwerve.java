@@ -4,6 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 import java.util.function.BooleanSupplier;
@@ -16,6 +17,11 @@ public class TeleopSwerve extends CommandBase {
   private DoubleSupplier rotationSup;
   private BooleanSupplier robotCentricSup;
   private BooleanSupplier slowSpeedSup;
+  private BooleanSupplier autoLevel;
+
+  private double translationVal = 0;
+  private double strafeVal = 0;
+  private double rotationVal = 0;
 
   private SlewRateLimiter translationLimiter = new SlewRateLimiter(3.0);
   private SlewRateLimiter strafeLimiter = new SlewRateLimiter(3.0);
@@ -27,7 +33,8 @@ public class TeleopSwerve extends CommandBase {
       DoubleSupplier strafeSup,
       DoubleSupplier rotationSup,
       BooleanSupplier robotCentricSup,
-      BooleanSupplier slowSpeedSup) {
+      BooleanSupplier slowSpeedSup,
+      BooleanSupplier autoLevel) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
 
@@ -36,6 +43,12 @@ public class TeleopSwerve extends CommandBase {
     this.rotationSup = rotationSup;
     this.robotCentricSup = robotCentricSup;
     this.slowSpeedSup = slowSpeedSup;
+    this.autoLevel = autoLevel;
+  }
+
+  @Override
+  public void initialize() {
+
   }
 
   @Override
@@ -43,16 +56,39 @@ public class TeleopSwerve extends CommandBase {
 
     double speedMultiplier = slowSpeedSup.getAsBoolean() ? 1.3 : 1.0;
 
-    /* Get Values, Deadband */
-    double translationVal = translationLimiter.calculate(
-        speedMultiplier *
-            MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
-    double strafeVal = strafeLimiter.calculate(
-        speedMultiplier *
-            MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
-    double rotationVal = rotationLimiter.calculate(
-        speedMultiplier *
-            MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
+    /* Translation Values */
+    if (autoLevel.getAsBoolean()) {
+      if (Constants.Swerve.gyro.getPitch() < -12){
+        translationVal = 0.15;
+      }else if (Constants.Swerve.gyro.getPitch() > 12){
+        translationVal = -0.15;
+      }else {
+        translationVal = 0;
+      }
+
+      System.out.println("lkjfahhsakjdsakjflsaksafdhlkasdfhlkjasdfasdghklsadfhjkjgsa");
+    } else {
+      translationVal = translationLimiter.calculate(
+          speedMultiplier * MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband));
+    }
+
+    /* Strafe Value */
+    if (autoLevel.getAsBoolean()) {
+      strafeVal = 0;
+      new PrintCommand("strafeVal");
+    } else {
+      strafeVal = strafeLimiter.calculate(
+          speedMultiplier * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
+    }
+
+    /* Rotation Value*/
+    if (autoLevel.getAsBoolean()) {
+      rotationVal = 0;
+      new PrintCommand("rotationVal");
+    } else {
+      rotationVal = rotationLimiter.calculate(
+          speedMultiplier * MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
+    }
 
     /* Drive */
     s_Swerve.drive(

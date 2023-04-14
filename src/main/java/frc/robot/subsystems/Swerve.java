@@ -94,24 +94,25 @@ public class Swerve extends SubsystemBase {
   }
 
   public void zeroGyro() {
-    RobotMap.gyro.setYaw(0);
+    Constants.Swerve.gyro.setYaw(0);
   }
 
   public void zeroGyro180() {
-    RobotMap.gyro.setYaw(180);
+    Constants.Swerve.gyro.setYaw(180);
   }
 
   public Rotation2d getYaw() {
     return (Constants.Swerve.invertGyro)
-        ? Rotation2d.fromDegrees(360 - RobotMap.gyro.getYaw())
-        : Rotation2d.fromDegrees(RobotMap.gyro.getYaw());
+        ? Rotation2d.fromDegrees(360 - Constants.Swerve.gyro.getYaw())
+        : Rotation2d.fromDegrees(Constants.Swerve.gyro.getYaw());
   }
 
   @Override
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-
+    SmartDashboard.putNumber(
+      "Gyro", Constants.Swerve.gyro.getPitch());
     /*for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

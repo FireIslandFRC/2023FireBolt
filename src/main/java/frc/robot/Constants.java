@@ -55,6 +55,8 @@ public final class Constants {
 
     /* Pigeon */
     public static final double pigeon = 30;
+    public static final Pigeon2 gyro = new Pigeon2(30);
+    
 
     /* Drivetrain Constants */
     public static final double trackWidth = Units.inchesToMeters(28);
