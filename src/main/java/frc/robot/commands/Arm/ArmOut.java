@@ -2,6 +2,7 @@ package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 
 import frc.robot.subsystems.*;
 
@@ -19,8 +20,10 @@ public class ArmOut extends CommandBase {
 
     @Override
     public void execute() {
+        if(Constants.RobotMap.Arm_Motor_Encoder.getPosition() > 20){
             Functions.Arm_extend();
-    }
+            }
+            done = true;    }
 
     @Override
     public void end(boolean interrupted) {

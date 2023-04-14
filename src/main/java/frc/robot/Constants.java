@@ -23,7 +23,7 @@ public final class Constants {
   public static final class RobotMap {
     public static CANSparkMax Arm_Motor = new CANSparkMax(10, MotorType.kBrushless);
     public static DoubleSolenoid Brake = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 1, 2);
-    public static DoubleSolenoid Arm = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 5, 6);
+    public static DoubleSolenoid Arm = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 14, 15);
     public static RelativeEncoder Arm_Motor_Encoder = Arm_Motor.getEncoder();
     public static DoubleSolenoid EndEffector = new DoubleSolenoid(11, PneumaticsModuleType.REVPH, 3, 4);
     public static DigitalInput LimitSwitchInOut = new DigitalInput(0);

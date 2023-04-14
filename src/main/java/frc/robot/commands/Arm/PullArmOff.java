@@ -1,6 +1,7 @@
 package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
 //this is drew
@@ -10,8 +11,7 @@ public class PullArmOff extends CommandBase {
 
     @Override
     public void initialize() {
-        Functions.Arm_extend();
-        done = true;
+        
     }
 
     @Override

@@ -79,16 +79,16 @@ public class Robot extends TimedRobot {
   }//01101001 00100000 01101100 01101111 01110110 01100101 00100000 01111001 01101111 01110101
   //binary for i love you
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and
-   * test.
-   *
-   * <p>
-   * This runs after the mode specific periodic functions, but before LiveWindow
-   * and
-   * SmartDashboard integrated updating.
+  /*
+    This function is called every robot packet, no matter the mode. Use this for
+    items like
+    diagnostics that you want ran during disabled, autonomous, teleoperated and
+    test.
+   
+    <p>
+    This runs after the mode specific periodic functions, but before LiveWindow
+    and
+    SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
@@ -101,8 +101,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     //posts to dashboard periodically
-    
-    
+    SmartDashboard.putNumber("Arm Encoder", Constants.RobotMap.Arm_Motor_Encoder.getPosition());
+
+    //ben is supa good at coding
     
     
   }
@@ -216,7 +217,6 @@ public class Robot extends TimedRobot {
     if (directoryListing == null) {
        return new String[0];
      }
-
     String[] paths = new String[directoryListing.length];
     for (int i = 0; i < directoryListing.length; i++) {
       String name = directoryListing[i].getName();
