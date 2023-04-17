@@ -156,7 +156,7 @@ public class RobotContainer extends TimedRobot {
      * @param pathName The name of the path to drive to.
      * @return The command that will drive the robot to the specified path.
      */
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 2,
+    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 3,
         1);
     // defining variables used in thingy
     eventMap.put("raisearm", new RaiseToTop());
@@ -235,10 +235,12 @@ public class RobotContainer extends TimedRobot {
           new Drop(),
           new ArmRetract(),
           builder.fullAuto(path.get(1)));
-    } else if (pathName.equals("Dock")) {
+    }/*//////////////////////////////// */
+     else if (pathName.equals("Dock")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
-          builder.fullAuto(path.get(0)));
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
     } else if (pathName.equals("Bottom")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
@@ -271,12 +273,15 @@ public class RobotContainer extends TimedRobot {
           new RaiseToBottom(),
           new Drop(),
           builder.fullAuto(path.get(0)));
-    } else if (pathName.equals("Middle")) {
+    } // **************************************************** We use these autos ****************************************************
+
+    // ************************************** Middle Node ************************************
+    else if (pathName.equals("Middle")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
-          new WaitCommand(1),
+          //new WaitCommand(1),
           new Drop(),
           new LowerArm(),
           builder.fullAuto(path.get(0)));
@@ -285,28 +290,83 @@ public class RobotContainer extends TimedRobot {
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
-          new WaitCommand(1),
+          //new WaitCommand(1),
           new Drop(),
           new LowerArm(),
-          builder.fullAuto(path.get(0)));
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
     } else if (pathName.equals("MiddleShortDock")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
-          new WaitCommand(1),
+          //new WaitCommand(1),
           new Drop(),
           new LowerArm(),
-          builder.fullAuto(path.get(0)));
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
     } else if (pathName.equals("MiddleMiddleDock")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
           new Grab(),
           new RaiseToMiddle(),
-          new WaitCommand(1),
+          //new WaitCommand(1),
           new Drop(),
           new LowerArm(),
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
+    }//************************************************** Top Node ****************************************
+    else if (pathName.equals("Top")) {
+      meat = Commands.sequence(
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new Grab(),
+          new RaiseToTop(),
+          new ArmOut(),
+          new WaitCommand(0.25),
+          new Drop(),
+          new PullArmIn(),
+          new WaitCommand(0.25),
+          new LowerArm(),
           builder.fullAuto(path.get(0)));
+    }else if (pathName.equals("TopLongDock")) {
+      meat = Commands.sequence(
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new Grab(),
+          new RaiseToTop(),
+          new ArmOut(),
+          new WaitCommand(0.25),
+          new Drop(),
+          new PullArmIn(),
+          new WaitCommand(0.25),
+          new LowerArm(),
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
+    } else if (pathName.equals("TopShortDock")) {
+      meat = Commands.sequence(
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new Grab(),
+          new RaiseToTop(),
+          new ArmOut(),
+          new WaitCommand(0.25),
+          new Drop(),
+          new PullArmIn(),
+          new WaitCommand(0.25),
+          new LowerArm(),
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
+    } else if (pathName.equals("TopMiddleDock")) {
+      meat = Commands.sequence(
+          new InstantCommand(() -> s_Swerve.zeroGyro180()),
+          new Grab(),
+          new RaiseToTop(),
+          new ArmOut(),
+          new WaitCommand(0.25),
+          new Drop(),
+          new PullArmIn(),
+          new WaitCommand(0.25),
+          new LowerArm(),
+          builder.fullAuto(path.get(0)),
+          new AutoSwerve(s_Swerve, 0.0, 0.0, 0.0, false, false, true));
     } else if (pathName.equals("Nothing")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()));
@@ -315,4 +375,3 @@ public class RobotContainer extends TimedRobot {
     return meat;
   }
 }
-//meat

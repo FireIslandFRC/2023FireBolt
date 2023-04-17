@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     //compressor.enableDigital();
     paths = this.getPaths();
-    if (paths.length > 0) {
+    if (paths.length > 0) {     
       kDefaultAuto = paths[1];
 
       for (String path : paths) {
@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
     //posts to dashboard periodically
     SmartDashboard.putNumber("Arm Encoder", Constants.RobotMap.Arm_Motor_Encoder.getPosition());
 
-    //ben is supa good at coding
+    //ben is supa good at doing random things. 
     
     
   }

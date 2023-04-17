@@ -17,14 +17,14 @@ public class RaiseToTop extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Motor_Encoder.getPosition() < 90) {
+        if (RobotMap.Arm_Motor_Encoder.getPosition() < 80) {
             Functions.Un_Brake();
             if (Functions.LimitUpDownValue()) {
                 Functions.Arm_lift(Variables.ArmLiftSpeed);
             } else if (!Functions.LimitUpDownValue()) {
                 Functions.Stop_lift();
             }
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() > 90) {
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() > 80) {
             Functions.Brake();
             Functions.Stop_lift();
             done = true;

@@ -18,7 +18,8 @@ public class PullArmIn extends CommandBase {
 
     @Override
     public void execute() {
-            Functions.Arm_Retract();
+        Functions.Arm_Retract();
+        done = true;
     }
 
     @Override

@@ -3,6 +3,7 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.MathUtil;
 //import edu.wpi.first.math.geometry.Rotation2d;
@@ -36,7 +37,7 @@ public class TurnToAngleCommand extends CommandBase {
         double gyroAngle = m_robotDrive.getYaw().getDegrees();
 
         final double kP = 0.2;
-        /*SmartDashboard.putNumber("gyroAngle", gyroAngle);*/
+        SmartDashboard.putNumber("gyroAngle", gyroAngle);
 
         if (angle > 180) {
             angle = -(360 - angle);

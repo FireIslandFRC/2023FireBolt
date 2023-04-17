@@ -17,14 +17,14 @@ public class LowerArm extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotMap.Arm_Motor_Encoder.getPosition() > 40) {
+        if (RobotMap.Arm_Motor_Encoder.getPosition() > 10) {
             Functions.Un_Brake();
             if (Functions.LimitUpDownValue()) {
                 Functions.Arm_lift(Variables.ArmDropSpeed);
             } else if (!Functions.LimitUpDownValue()) {
                 Functions.Stop_lift();
             }
-        } else if (RobotMap.Arm_Motor_Encoder.getPosition() < 40) {
+        } else if (RobotMap.Arm_Motor_Encoder.getPosition() < 10) {
             Functions.Brake();
             Functions.Stop_lift();
             done = true;
