@@ -60,10 +60,10 @@ public class AutoSwerve extends CommandBase {
 
     /* Translation Values */
     if (autoLevel) {
-      if (Constants.Swerve.gyro.getPitch() < -12){
-        translationVal = -0.1;
-      }else if (Constants.Swerve.gyro.getPitch() > 12){
-        translationVal = 0.1;
+      if (Constants.Swerve.gyro.getPitch() < -11){
+        translationVal = -0.15;
+      }else if (Constants.Swerve.gyro.getPitch() > 11){
+        translationVal = 0.15;
       }else {
         translationVal = 0;
       }
