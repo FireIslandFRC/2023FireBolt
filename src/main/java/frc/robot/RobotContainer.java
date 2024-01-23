@@ -8,12 +8,10 @@ package frc.robot;
 import java.util.HashMap;
 import java.util.List;
 
+//import com.pathplanner.lib.util.PIDConstants;
+
 import frc.robot.subsystems.Swerve;
 
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -69,7 +67,7 @@ public class RobotContainer extends TimedRobot {
   public static final JoystickButton Grab = new JoystickButton(op, 7);
   public static final JoystickButton Drop = new JoystickButton(op, 8);
   public static final JoystickButton armlift = new JoystickButton(op, 1);
-  public static final JoystickButton armlower = new JoystickButton(op, 2);
+  public static final JoystickButton  armlower = new JoystickButton(op, 2);
   public static final JoystickButton armout = new JoystickButton(op, 5);
   public static final JoystickButton armin = new JoystickButton(op, 6);
   public static final JoystickButton AutoBalance = new JoystickButton(driver, 7);
@@ -156,11 +154,14 @@ public class RobotContainer extends TimedRobot {
      * @param pathName The name of the path to drive to.
      * @return The command that will drive the robot to the specified path.
      */
-    List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 3,
+   /*  List<PathPlannerTrajectory> path = PathPlanner.loadPathGroup(pathName, 3,
         1);
     // defining variables used in thingy
-    eventMap.put("raisearm", new RaiseToTop());
+    eventMap.put("RaiseArmToTop", new RaiseToTop());
     eventMap.put("x", new ArmRest()); // matches x button
+    eventMap.put("ResetGyro180",  s_Swerve.zeroGyro180());
+    
+
 
     SwerveAutoBuilder builder = new SwerveAutoBuilder(
         s_Swerve::getPose,
@@ -208,7 +209,7 @@ public class RobotContainer extends TimedRobot {
           new ArmRetract(),
           builder.fullAuto(path.get(1)),
           new ArmRest());
-      /* builder.fullAuto(path.get(0))); */
+       builder.fullAuto(path.get(0))); 
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("ConePick")) {
       meat = Commands.sequence(
@@ -235,7 +236,7 @@ public class RobotContainer extends TimedRobot {
           new Drop(),
           new ArmRetract(),
           builder.fullAuto(path.get(1)));
-    }/*//////////////////////////////// */
+    }//////////////////////////////// 
      else if (pathName.equals("Dock")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()),
@@ -248,7 +249,7 @@ public class RobotContainer extends TimedRobot {
           new RaiseToBottom(),
           new Drop(),
           builder.fullAuto(path.get(0)));
-      /* builder.fullAuto(path.get(0))); */
+      /* builder.fullAuto(path.get(0))); 
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("BottomMiddleDock")) {
       meat = Commands.sequence(
@@ -257,7 +258,7 @@ public class RobotContainer extends TimedRobot {
           new RaiseToBottom(),
           new Drop(),
           builder.fullAuto(path.get(0)));
-      /* builder.fullAuto(path.get(0))); */
+      /* builder.fullAuto(path.get(0))); 
       // place cone/cube then pick up another cone/cube autonomous
     } else if (pathName.equals("BottomShortDock")) {
       meat = Commands.sequence(
@@ -383,7 +384,7 @@ public class RobotContainer extends TimedRobot {
     } else if (pathName.equals("Nothing")) {
       meat = Commands.sequence(
           new InstantCommand(() -> s_Swerve.zeroGyro180()));
-    }
+    }*/
     // returns the Meat of the auto
     return meat;
   }
